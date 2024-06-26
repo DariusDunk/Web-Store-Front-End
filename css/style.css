@@ -245,3 +245,151 @@ textarea {
   }
 }
 
+/*
+:root {
+  --color-g: #90EE90; Brighter light green
+--color-o: #FF6347; Darker dark orange
+
+ */
+
+
+/* Colors */
+:root {
+  --color-g: #90ee90; /* Brighter light green */
+  --color-o: #FF6347; /* Darker dark orange */
+  --color-white: #FFFFFF;
+  --color-grey: #808080;
+}
+
+/* Brand styling */
+.brand-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px; /* Add some space between brand and menu */
+}
+
+.brand {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 150px; /* Adjust width as needed */
+  background-color: transparent; /* Ensure the brand div has no background color */
+}
+
+.brand-text {
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+}
+
+.agro {
+  color: var(--color-o);
+}
+
+.mag {
+  color: var(--color-g);
+}
+
+.brand-rectangle {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1; /* Place the rectangle behind the text */
+}
+
+.brand-rectangle::before,
+.brand-rectangle::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px 0 20px 0;
+}
+
+.brand-rectangle::before {
+  border: 3px solid var(--color-g); /* Line thickness */
+  clip-path: polygon(0 0, 100% 0, 0% 100%);
+}
+
+.brand-rectangle::after {
+  border: 3px solid var(--color-o); /* Line thickness */
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+/* Menu styling */
+.menu {
+  display: flex;
+  justify-content: space-between; /* Spacing between brand and search bar */
+  align-items: center;
+  background-color: var(--color-g);
+  padding: 10px 20px;
+  width: 100%;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.menu-options {
+  display: flex;
+  margin-left: 0; /* Ensure menu options start from the left */
+}
+
+.menu-options a {
+  text-decoration: none;
+  color: var(--color-white); /* White text color */
+  font-weight: bold; /* Bold font style */
+  font-size: 23px; /* Increased font size by 3px */
+  margin-right: 20px; /* Space between menu options */
+  padding: 5px;
+  border: 1px solid transparent; /* Add transparent border */
+  transition: color 0.3s ease, border 0.3s ease; /* Smooth transition on hover and click */
+  box-sizing: border-box; /* Include border in the element's total width and height */
+}
+
+.menu-options a:hover {
+  color: var(--color-o); /* Change text color on hover to dark orange */
+}
+
+.menu-options a:active {
+  color: var(--color-o); /* Change text color on click to dark orange */
+  border-color: var(--color-o); /* Add border on click */
+}
+
+/* Search bar styling */
+.search-bar {
+  position: relative;
+  background-color: var(--color-white); /* White background */
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto; /* Center the search bar horizontally */
+}
+
+.search-bar input[type="text"] {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  outline: none; /* Remove default outline */
+}
+
+.search-bar input[type="text"]::placeholder {
+  color: rgba(128, 128, 128, 0.7); /* Grey color with 70% opacity */
+}
+
+.search-bar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.search-bar button img {
+  width: 20px; /* Adjust icon size as needed */
+}
+
+/* Hover effect for search bar */
+.search-bar:hover input[type="text"]::placeholder {
+  opacity: 1; /* Full opacity on hover */
+}
