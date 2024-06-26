@@ -32,15 +32,38 @@
   <h1>Data from API</h1>
   <div id="resultContainer"></div>
 
-  <!-- Include the script file -->
-<!--  <script src="script.js"></script>-->
+<!--  <script>-->
+<!--    window.onload = function() {-->
+<!--      fetchData();-->
+<!--    };-->
+<!--  </script>-->
+manufacturer:
+  <br>
+  <label for="name_area">
+    <textarea id="name_area"></textarea>
+  </label>
 
-  <!-- Call the fetchData function when the page loads -->
-  <script>
-    window.onload = function() {
-      fetchData();
-    };
-  </script>
+  <br>
+  id:
+  <br>
+  <label for="code_area">
+    <textarea id="code_area"></textarea>
+  </label>
+<br>
+  page:
+  <br>
+  <label for="page_area">
+    <textarea id="page_area"></textarea>
+  </label>
+
+  <br>
+  <button onclick="pathVariableFetch(document.getElementById('name_area').value,
+  document.getElementById('code_area').value,document.getElementById('page_area').value)">Submit</button>
+
+<!--<br>-->
+<!--  <label>-->
+<!--    <textarea id="name"></textarea>-->
+<!--  </label>-->
 
 </body>
 
