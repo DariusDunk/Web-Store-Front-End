@@ -52,20 +52,16 @@ function displayStructured(data) {
 }
 
 
-async function pathVariableFetch(manufacturerName, manufacturerId,page) {
+async function pathVariableFetch(manufacturerName, manufacturerId, page) {
   try {
     const response = await fetch(`http://localhost:3000/product/manufacturer/${manufacturerName}-${manufacturerId}/p${page}`); // Replace with your endpoint URL
 
     if (response.status === 404) {
       // Handle 404 error: Redirect to 404 page
       window.location.href = '/404.html';
-      }
-    else
-    if (!response.ok) {
+    } else if (!response.ok) {
       throw new Error('Network response was not ok ' + response.statusText);
-    }
-    else
-    {
+    } else {
       const data = await response.json();
       displayPage(data);
     }
@@ -116,32 +112,31 @@ async function getProducts() {
       const productDiv = document.createElement('div');
       productDiv.classList.add('product');
 
+      const productLink = document.createElement('a');
+      productLink.href = `product-details.html?productCode=${product.productCode}`;
+
       const productImage = document.createElement('img');
       productImage.src = product.imageUrl;
-      productDiv.appendChild(productImage);
+      productLink.appendChild(productImage);
 
       const productName = document.createElement('div');
       productName.classList.add('product-name');
       productName.textContent = product.name;
-      productDiv.appendChild(productName);
+      productLink.appendChild(productName);
 
       if (product.originalPriceStotinki !== product.salePriceStotinki) {
         const originalPrice = document.createElement('div');
         originalPrice.classList.add('product-original-price');
         originalPrice.textContent = (product.originalPriceStotinki / 100).toFixed(2) + ' лв';
-        productDiv.appendChild(originalPrice);
+        productLink.appendChild(originalPrice);
       }
 
       const salePrice = document.createElement('div');
       salePrice.classList.add('product-price');
       salePrice.textContent = (product.salePriceStotinki / 100).toFixed(2) + ' лв';
-      productDiv.appendChild(salePrice);
+      productLink.appendChild(salePrice);
 
-      productDiv.addEventListener('click', () => {
-        // Add your functionality here when a product is clicked
-        console.log(`Product ${product.productCode} clicked`);
-      });
-
+      productDiv.appendChild(productLink);
       productContainer.appendChild(productDiv);
     });
   } catch (error) {

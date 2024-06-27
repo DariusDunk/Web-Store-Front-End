@@ -143,7 +143,6 @@
   opacity: 1; /* Full opacity on hover */
 }
 
-/* User profile styling */
 .user-profile {
   display: flex;
   align-items: center;
@@ -151,14 +150,15 @@
 }
 
 .heart-icon {
-  background: none;
+  background-color: transparent;
   border: none;
   cursor: pointer;
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
 .heart-icon img {
-  width: 20px; /* Adjust icon size as needed */
+  width: 20px;
+  height: 20px;
 }
 
 .profile-container {
@@ -167,49 +167,45 @@
   cursor: pointer;
 }
 
-.profile-image {
-  width: 40px;
-  height: 40px;
+.profile-container img {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .username {
-  font-weight: bold;
+  font-family: Arial, sans-serif;
   color: var(--color-white);
 }
 
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 50px; /* Position below the profile container */
+  top: 40px;
   right: 0;
-  background-color: var(--color-o); /* Background color */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-white);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1;
-  border-radius: 5px;
-  overflow: hidden;
+  width: 150px;
 }
 
 .dropdown-menu a {
   display: block;
-  padding: 10px 20px;
-  color: var(--color-white); /* White text color */
+  padding: 10px;
+  color: var(--color-grey);
   text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  font-size: 18px;
+  font-family: Arial, sans-serif;
 }
 
 .dropdown-menu a:hover {
-  background-color: var(--color-g); /* Hover background color */
-  /*color: var(--color-o); !* Hover text color *!*/
+  background-color: var(--color-g);
+  color: var(--color-white);
 }
 
 .show {
   display: block;
 }
-
 
 
 

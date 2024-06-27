@@ -255,31 +255,24 @@ textarea {
 .product-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start; /* Align items from the start */
+  gap: 10px;
   padding: 20px;
 }
+
 .product {
-  width: 23%; /* Four products per row */
-  margin-bottom: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  box-sizing: border-box;
-  text-align: center;
-  position: relative; /* Ensure positioning context */
-  overflow: hidden; /* Hide overflowing border on hover */
+  width: calc(25% - 10px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: var(--color-white);
+  transition: transform 0.3s ease-in-out;
 }
 
-.product:hover::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-left: 3px solid var(--color-g); /* Left side of the border */
-  border-right: 3px solid var(--color-o); /* Right side of the border */
-  border-radius: 30px 20px 30px 20px;
-  pointer-events: none; /* Allow clicks to pass through */
+.product a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
 .product img {
@@ -288,18 +281,43 @@ textarea {
 }
 
 .product-name {
-  font-size: 18px;
-  margin: 10px 0;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  color: var(--color-grey);
 }
 
-.product-price {
-  font-size: 16px;
+.product-price, .product-original-price {
+  padding: 0 10px 10px;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
   font-weight: bold;
+  color: var(--color-o);
 }
 
 .product-original-price {
-  font-size: 14px;
   text-decoration: line-through;
-  color: grey;
-  margin-right: 5px;
+  color: var(--color-grey);
+}
+
+.product:hover {
+  transform: translateY(-5px);
+}
+
+@media (max-width: 1200px) {
+  .product {
+    width: calc(33.33% - 10px);
+  }
+}
+
+@media (max-width: 900px) {
+  .product {
+    width: calc(50% - 10px);
+  }
+}
+
+@media (max-width: 600px) {
+  .product {
+    width: calc(100% - 10px);
+  }
 }
