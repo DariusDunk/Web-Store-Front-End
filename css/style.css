@@ -321,3 +321,33 @@ textarea {
     width: calc(100% - 10px);
   }
 }
+/* Star Rating Styles */
+.rating-container {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.star {
+  font-size: 18px; /* Adjust size of stars as needed */
+  color: var(--color-o); /* Color of stars */
+}
+
+.star::before {
+  content: '★'; /* Unicode star symbol */
+  margin-right: 2px;
+}
+
+.full::before {
+  content: '★'; /* Filled star */
+}
+
+.half::before {
+  content: '☆'; /* Half-filled star */
+}
+
+.empty::before {
+  content: '☆'; /* Empty star */
+  color: #ccc; /* Light gray color for empty stars */
+}
+
