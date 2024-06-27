@@ -74,28 +74,59 @@ async function pathVariableFetch(manufacturerName, manufacturerId,page) {
   }
 }
 
-function displayPage(data) {
-  const resultContainer = document.getElementById('resultContainer');
-  resultContainer.innerHTML = ''; // Clear previous results
+document.addEventListener("DOMContentLoaded", () => {
+  getProducts();
+});
 
-  if (data && data.content && Array.isArray(data.content)) {
-    // Assuming data.content is an array of objects
-    data.content.forEach(item => {
-      const div = document.createElement('div');
-      div.textContent = JSON.stringify(item); // Convert item to string for display purposes
-      resultContainer.appendChild(div);
-    });
+// function getProducts() {
+//   const manufacturerName = "exampleName"; // Replace with actual manufacturer name
+//   const manufacturerId = 123; // Replace with actual manufacturer ID
+//   const page = 1; // Replace with actual page number
+//
+//   fetch(`http://localhost:3000/product/manufacturer/${manufacturerName}-${manufacturerId}/p${page}`)
+//     .then((response) => response.json())
+//     .then((data) => displayProducts(data.content))
+//     .catch((error) => console.error("Error fetching products:", error));
+// }
 
-    // Display pagination info if needed
-    const paginationInfo = document.createElement('div');
-    paginationInfo.textContent = `Page: ${data.page.number + 1} of ${data.page.totalPages}, Total items: ${data.page.totalElements}`;
-    resultContainer.appendChild(paginationInfo);
-  } else {
-    // Handle cases where data.content is not an array
-    const div = document.createElement('div');
-    div.textContent = 'No content available';
-    resultContainer.appendChild(div);
-  }
+function displayProducts(products) {
+  const container = document.querySelector(".products-container");
+  container.innerHTML = ""; // Clear previous products
+
+  products.forEach((product) => {
+    const productDiv = document.createElement("div");
+    productDiv.classList.add("product");
+
+    const productLink = document.createElement("a");
+    productLink.href = `product/${product.productCode}`; // Replace with actual product page link
+    productLink.style.textDecoration = "none";
+    productLink.style.color = "inherit";
+
+    const img = document.createElement("img");
+    img.src = product.imageUrl;
+    img.alt = product.name;
+
+    const name = document.createElement("div");
+    name.classList.add("product-name");
+    name.textContent = product.name;
+
+    const price = document.createElement("div");
+    price.classList.add("product-price");
+    if (product.originalPriceStotinki !== product.salePriceStotinki) {
+      const originalPrice = document.createElement("div");
+      originalPrice.classList.add("product-original-price");
+      originalPrice.textContent = (product.originalPriceStotinki / 100).toFixed(2) + " лв.";
+      price.appendChild(originalPrice);
+    }
+    price.appendChild(document.createTextNode((product.salePriceStotinki / 100).toFixed(2) + " лв."));
+
+    productLink.appendChild(img);
+    productLink.appendChild(name);
+    productLink.appendChild(price);
+
+    productDiv.appendChild(productLink);
+    container.appendChild(productDiv);
+  });
 }
 
 async function getProducts() {
