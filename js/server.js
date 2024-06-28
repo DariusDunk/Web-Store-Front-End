@@ -12,23 +12,6 @@ app.get('/endpoint', (req, res) => {
   res.json({ message: 'Hello from localhost!' });
 });
 
-// app.get('/getDataFromBackend', async (req, res) => {
-//
-//   try {
-//     const response = await fetch(`${Backend_Url}/category/`);
-//
-//     if (!response.ok) {
-//       throw new Error('Failed to fetch data');
-//     }
-//     const data = await response.json();
-//     res.json(data);
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//     res.status(500).json({ error: 'Failed to fetch data' });
-//   }
-// });
-
-
 app.get('/product/manufacturer/:manufacturerName-:manufacturerId/p:page', async (req, res) => {
   const { manufacturerName, manufacturerId, page} = req.params;
 
