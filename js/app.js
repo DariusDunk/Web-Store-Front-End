@@ -1,57 +1,6 @@
 // script.js
 
 const Proxy_Url = 'http://localhost:3000';
-async function fetchData() {
-  try {
-    const response = await fetch('http://localhost:3000/getDataFromBackend'); // Replace with your endpoint URL
-    if (!response.ok) {
-      throw new Error('Network response was not ok ' + response.statusText);
-    }
-    const data = await response.json();
-    displayStructured(data);
-  } catch (error) {
-    console.error('There has been a problem with your fetch operation:', error);
-  }
-}
-
-function displayData(data) {
-  const resultContainer = document.getElementById('resultContainer');
-
-  // Assuming the data is an array of objects
-  data.forEach(item => {
-    const div = document.createElement('div');
-    div.textContent = JSON.stringify(item); // Convert item to string for display purposes
-    resultContainer.appendChild(div);
-  });
-}
-
-function displayStructured(data) {
-  const extractedData = data.map(({ id, categoryName }) => ({ id, categoryName }));
-
-  const container = document.getElementById('resultContainer');
-
-  extractedData.forEach(item => {
-    // Create a div element to hold the data
-    const itemDiv = document.createElement('div');
-
-    // Create a paragraph for the ID
-    const idPara = document.createElement('p');
-    idPara.textContent = `ID: ${item.id}`;
-
-    // Create a paragraph for the name
-    const namePara = document.createElement('p');
-    namePara.textContent = `Name: ${item.categoryName}`;
-
-    // Append paragraphs to the div
-    itemDiv.appendChild(idPara);
-    itemDiv.appendChild(namePara);
-
-    // Append the div to the container
-    container.appendChild(itemDiv);
-  });
-}
-
-
 async function pathVariableFetch(manufacturerName, manufacturerId, page) {
   try {
     const response = await fetch(`http://localhost:3000/product/manufacturer/${manufacturerName}-${manufacturerId}/p${page}`); // Replace with your endpoint URL
@@ -98,7 +47,7 @@ async function getProducts() {
   const manufacturerName = "Gardenia"; // Replace with actual manufacturer name
   const manufacturerId = "2"; // Replace with actual manufacturer ID
   const page = 0; // Replace with the actual page number as needed
-  const url = `http://localhost:3000/product/manufacturer/${manufacturerName}-${manufacturerId}/p${page}`;
+  const url = `${Proxy_Url}/product/manufacturer/${manufacturerName}-${manufacturerId}/p${page}`;
 
   try {
     const response = await fetch(url);
@@ -129,17 +78,15 @@ async function getProducts() {
       let rating = 0;
       let totalStars = 0;
 
-      if (product.rating!==0) {
-         rating = product.rating / 10;
-         totalStars = Math.min(Math.ceil(rating), 5);
+      if (product.rating !== 0) {
+        rating = product.rating / 10;
+        totalStars = Math.min(Math.ceil(rating), 5);
       }
 
       // Display a maximum of 5 stars
 
-
       // Full stars
-      if (rating!==0)
-      {
+      if (rating !== 0) {
         for (let i = 0; i < Math.floor(rating); i++) {
           const starIcon = document.createElement('span');
           starIcon.classList.add('star', 'full');
@@ -157,11 +104,14 @@ async function getProducts() {
       for (let i = 0; i < 5 - totalStars; i++) {
         const starIcon = document.createElement('span');
         starIcon.classList.add('star', 'empty');
-        // starIcon.textContent = '☆';
         ratingContainer.appendChild(starIcon);
       }
-//TODO find a symbol or photo for a half filled star
-      //TODO show number of reviews per product next to stars
+
+      // Add review count
+      const reviewCount = document.createElement('span');
+      reviewCount.classList.add('review-count');
+      reviewCount.textContent = `(${product.reviewCount})`;
+      ratingContainer.appendChild(reviewCount);
 
       // Append rating container
       productLink.appendChild(ratingContainer);
@@ -182,9 +132,8 @@ async function getProducts() {
       productDiv.appendChild(productLink);
       productContainer.appendChild(productDiv);
     });
-
-
   } catch (error) {
     console.error('Error fetching products:', error);
   }
 }
+

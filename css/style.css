@@ -350,4 +350,9 @@ textarea {
   content: '☆'; /* Empty star */
   color: #ccc; /* Light gray color for empty stars */
 }
+.review-count {
+  font-size: 14px; /* Adjust size of the text */
+  color: #808080; /* Gray color for the text */
+  margin-left: 5px; /* Space between stars and review count */
+}
 
