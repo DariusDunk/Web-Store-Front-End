@@ -209,31 +209,76 @@ function updatePagination(lastPage, currentPage) {
   paginationContainer.appendChild(pagination);
 }
 
-function loadProducts(mode,params) {
-  let apiUrl = '';
-  switch (mode) {
-    case 'manufacturer':
-       apiUrl = `${Proxy_Url}/product/manufacturer/${params[0]}/p${params[1]}`;
-      break;
-    case 'category':
-      const categoryId = urlParams.get('categoryId');
-      apiUrl = `/api/products?category=${categoryId}`;
-      break;
-    case 'search':
-      const searchTerm = urlParams.get('searchTerm');
-      apiUrl = `/api/products?search=${searchTerm}`;
-      break;
-    case 'filter':
-      const filterQuery = urlParams.get('filterQuery');
-      apiUrl = `/api/products?filter=${filterQuery}`;
-      break;
-    default:
-      apiUrl = `${Proxy_Url}/product/manufacturer/${params[0]}/p${params[1]}`;
-      break;
-  }
+// function loadProducts(mode,params) {
+//   let apiUrl = '';
+//   switch (mode) {
+//     case 'manufacturer':
+//        apiUrl = `${Proxy_Url}/product/manufacturer/${params[0]}/p${params[1]}`;
+//       break;
+//     case 'category':
+//       const categoryId = urlParams.get('categoryId');
+//       apiUrl = `/api/products?category=${categoryId}`;
+//       break;
+//     case 'search':
+//       const searchTerm = urlParams.get('searchTerm');
+//       apiUrl = `/api/products?search=${searchTerm}`;
+//       break;
+//     case 'filter':
+//       const filterQuery = urlParams.get('filterQuery');
+//       apiUrl = `/api/products?filter=${filterQuery}`;
+//       break;
+//     default:
+//       apiUrl = `${Proxy_Url}/product/manufacturer/${params[0]}/p${params[1]}`;
+//       break;
+//   }
+//
+//   fetch(apiUrl)
+//     .then(response => response.json())
+//     .then(products => displayProducts(products))
+//     .catch(error => console.error('Error loading products:', error));
+// }
+//
+//
+// document.addEventListener('DOMContentLoaded', function (mode) {
+//
+//   // Define an array to hold the parameters needed for each mode
+//   let params = [];
+//
+//   // Populate the params array based on the mode
+//   switch (mode) {
+//     case 'manufacturer':
+//       params = [urlParams.get('manufacturerId')];
+//       break;
+//     case 'category':
+//       params = [urlParams.get('categoryId')];
+//       break;
+//     case 'search':
+//       params = [urlParams.get('searchTerm')];
+//       break;
+//     case 'filter':
+//       params = [urlParams.get('filterQuery')];
+//       break;
+//     default:
+//       params = ['Gardenia',0];
+//       break;
+//   }
+// });
 
-  fetch(apiUrl)
+
+document.addEventListener('DOMContentLoaded', function categoryNames() {
+  const categoryMenu = document.getElementById('category-menu');
+
+  fetch(`${Proxy_Url}/category/names`) // Replace with your API endpoint
     .then(response => response.json())
-    .then(products => displayProducts(products))
-    .catch(error => console.error('Error loading products:', error));
-}
+    .then(data => {
+      data.forEach(item => {
+        const a = document.createElement('a');
+        a.href = item; // Adjust based on your API response
+        a.textContent = item; // Adjust based on your API response
+        categoryMenu.appendChild(a);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching menu items:', error);
+    });
+});

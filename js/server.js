@@ -36,6 +36,26 @@ app.get('/product/manufacturer/:manufacturerName/p:page', async (req, res) => {
   }
 });
 
+app.get('/category/names', async (req, res)=> {
+
+  try {
+    const response = await fetch(`${Backend_Url}/category/names`);
+    if (response.status === 404) {
+      // If the response status is 404, redirect to the custom 404 page
+      res.redirect('/404.html');
+    } else if (!response.ok) {
+      throw new Error('Network response was not ok ' + response.statusText);
+    } else {
+      const data = await response.json();
+      res.json(data);
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).json({error: 'Failed to fetch data from the real server'});
+  }
+
+});
+
 
 // Start the server
 app.listen(port, () => {
