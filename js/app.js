@@ -2,16 +2,22 @@
 
 const Proxy_Url = 'http://localhost:3000';
 
-async function getProducts() {
+
+async function getProducts(page=0) {
   const manufacturerName = "Gardenia"; // Replace with actual manufacturer name
   const manufacturerId = "2"; // Replace with actual manufacturer ID
-  const page = 0; // Replace with the actual page number as needed
+
+  if (typeof page!='number'){
+    page=0;
+  }
+
   const url = `${Proxy_Url}/product/manufacturer/${manufacturerName}-${manufacturerId}/p${page}`;
 
   try {
     const response = await fetch(url);
     const data = await response.json();
     const products = data.content;
+    const totalPages = data.page.totalPages;
 
     const productContainer = document.getElementById('productContainer');
     productContainer.innerHTML = ''; // Clear existing products
@@ -42,16 +48,12 @@ async function getProducts() {
         totalStars = Math.min(Math.ceil(rating), 5);
       }
 
-      // Display a maximum of 5 stars
-
-      // Full stars
       if (rating !== 0) {
         for (let i = 0; i < Math.floor(rating); i++) {
           const starIcon = document.createElement('span');
           starIcon.classList.add('star', 'full');
           ratingContainer.appendChild(starIcon);
         }
-
         // Half star if needed
         if (rating % 1 !== 0) {
           const starIcon = document.createElement('span');
@@ -91,8 +93,141 @@ async function getProducts() {
       productDiv.appendChild(productLink);
       productContainer.appendChild(productDiv);
     });
+    updatePagination(totalPages-1, page);
   } catch (error) {
     console.error('Error fetching products:', error);
   }
+}
+
+function updatePagination(lastPage, currentPage) {
+  const paginationContainer = document.getElementById('paginationContainer');
+  paginationContainer.innerHTML = ''; // Clear existing pagination
+
+  const pagination = document.createElement('div');
+  pagination.classList.add('pagination');
+
+  // First page button
+  const prevDoubleButton = document.createElement('span');
+  prevDoubleButton.innerHTML = '&lt;&lt;';
+  prevDoubleButton.classList.add('pagination-button');
+  if (currentPage === 0) {
+    prevDoubleButton.classList.add('disabled');
+  } else {
+    prevDoubleButton.addEventListener('click', () => {
+      getProducts(0);
+    });
+  }
+  pagination.appendChild(prevDoubleButton);
+
+  // Previous page button
+  const prevButton = document.createElement('span');
+  prevButton.innerHTML = '&lt;';
+  prevButton.classList.add('pagination-button');
+  if (currentPage === 0) {
+    prevButton.classList.add('disabled');
+  } else {
+    prevButton.addEventListener('click', () => {
+      getProducts(currentPage - 1);
+    });
+  }
+  pagination.appendChild(prevButton);
+
+  let maxPrevPages = 0;
+  let maxNextPages = 0;
+  if (currentPage-2>=0){
+    maxPrevPages = 2;
+  }
+  else if (currentPage-1>=0)
+  {
+    maxPrevPages = 1;
+  }
+
+  if (currentPage+2<=lastPage){
+    maxNextPages = 2;
+  }
+  else if (currentPage+1<=lastPage){
+    maxNextPages = 1;
+  }
+
+  //prev 2 pages
+  if (maxPrevPages) {
+    for (let i = 1; i <= maxPrevPages; i++) {
+      const pageButton = document.createElement('span');
+      pageButton.textContent = currentPage + 1 - i;
+      pageButton.classList.add('pagination-button');
+      pageButton.addEventListener('click', () => {
+        getProducts(currentPage - i);
+      });
+
+      pagination.appendChild(pageButton);
+    }
+  }
+
+    //Current Page
+  const currentPageVisual = document.createElement('span');
+  currentPageVisual.textContent = currentPage+1;
+  currentPageVisual.classList.add('pagination-button');
+  currentPageVisual.classList.add('disabled');
+  currentPageVisual.classList.add('pagination-button-current')
+  //TODO add a highlight to the button
+  pagination.appendChild(currentPageVisual)
+
+  //next 2 pages
+  if (maxNextPages) {
+    for (let i = 1; i <= maxNextPages; i++) {
+      const pageButton = document.createElement('span');
+      pageButton.textContent = currentPage+1 + i;
+      pageButton.classList.add('pagination-button');
+      pageButton.addEventListener('click', () => {
+          getProducts(currentPage+i);
+        });
+
+      pagination.appendChild(pageButton);
+    }
+  }
+
+
+  // Next page button
+  const nextButton = document.createElement('span');
+  nextButton.innerHTML = '&gt;';
+  nextButton.classList.add('pagination-button');
+  if (currentPage === lastPage) {
+    nextButton.classList.add('disabled');
+  } else {
+    nextButton.addEventListener('click', () => {
+      getProducts(currentPage + 1);
+    });
+  }
+  pagination.appendChild(nextButton);
+
+  // Next double arrow button
+  const nextDoubleButton = document.createElement('span');
+  nextDoubleButton.innerHTML = '&gt;&gt;';
+  nextDoubleButton.classList.add('pagination-button');
+  if (currentPage === lastPage) {
+    nextDoubleButton.classList.add('disabled');
+  } else {
+    nextDoubleButton.addEventListener('click', () => {
+      getProducts(lastPage);
+    });
+  }
+  pagination.appendChild(nextDoubleButton);
+
+  // // Last page button
+  // const lastButton = document.createElement('span');
+  // // lastButton.textContent = totalPages;
+  // lastButton.classList.add('pagination-button');
+  // if (currentPage === totalPages - 1) {
+  //   lastButton.classList.add('disabled');
+  // } else {
+  //   lastButton.addEventListener('click', () => {
+  //     getProducts(totalPages - 1);
+  //   });
+  // }
+  // pagination.appendChild(lastButton);
+
+
+
+  paginationContainer.appendChild(pagination);
 }
 
