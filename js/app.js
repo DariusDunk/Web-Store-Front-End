@@ -169,7 +169,6 @@ function updatePagination(lastPage, currentPage) {
   currentPageVisual.classList.add('pagination-button');
   currentPageVisual.classList.add('disabled');
   currentPageVisual.classList.add('pagination-button-current')
-  //TODO add a highlight to the button
   pagination.appendChild(currentPageVisual)
 
   //next 2 pages

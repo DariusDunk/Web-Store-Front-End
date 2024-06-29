@@ -355,37 +355,3 @@ textarea {
   color: #808080; /* Gray color for the text */
   margin-left: 5px; /* Space between stars and review count */
 }
-
-.pagination-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination {
-  display: flex;
-  list-style: none;
-  padding: 0;
-}
-
-.pagination-button {
-  cursor: pointer;
-  padding: 5px 10px;
-  margin: 0 2px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-.pagination-button.active {
-  background-color: var(--color-g);
-  color: white;
-}
-
-.pagination-button.disabled {
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.pagination-button-current{
-  background-color: var(--color-g);
-}
