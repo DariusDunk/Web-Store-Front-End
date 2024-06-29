@@ -1,17 +1,13 @@
-// script.js
-
 const Proxy_Url = 'http://localhost:3000';
-
 
 async function getProducts(page=0) {
   const manufacturerName = "Gardenia"; // Replace with actual manufacturer name
-  const manufacturerId = "2"; // Replace with actual manufacturer ID
 
   if (typeof page!='number'){
     page=0;
   }
 
-  const url = `${Proxy_Url}/product/manufacturer/${manufacturerName}-${manufacturerId}/p${page}`;
+  const url = `${Proxy_Url}/product/manufacturer/${manufacturerName}/p${page}`;
 
   try {
     const response = await fetch(url);
@@ -185,7 +181,6 @@ function updatePagination(lastPage, currentPage) {
     }
   }
 
-
   // Next page button
   const nextButton = document.createElement('span');
   nextButton.innerHTML = '&gt;';
@@ -211,22 +206,34 @@ function updatePagination(lastPage, currentPage) {
     });
   }
   pagination.appendChild(nextDoubleButton);
-
-  // // Last page button
-  // const lastButton = document.createElement('span');
-  // // lastButton.textContent = totalPages;
-  // lastButton.classList.add('pagination-button');
-  // if (currentPage === totalPages - 1) {
-  //   lastButton.classList.add('disabled');
-  // } else {
-  //   lastButton.addEventListener('click', () => {
-  //     getProducts(totalPages - 1);
-  //   });
-  // }
-  // pagination.appendChild(lastButton);
-
-
-
   paginationContainer.appendChild(pagination);
 }
 
+function loadProducts(mode,params) {
+  let apiUrl = '';
+  switch (mode) {
+    case 'manufacturer':
+       apiUrl = `${Proxy_Url}/product/manufacturer/${params[0]}/p${params[1]}`;
+      break;
+    case 'category':
+      const categoryId = urlParams.get('categoryId');
+      apiUrl = `/api/products?category=${categoryId}`;
+      break;
+    case 'search':
+      const searchTerm = urlParams.get('searchTerm');
+      apiUrl = `/api/products?search=${searchTerm}`;
+      break;
+    case 'filter':
+      const filterQuery = urlParams.get('filterQuery');
+      apiUrl = `/api/products?filter=${filterQuery}`;
+      break;
+    default:
+      apiUrl = `${Proxy_Url}/product/manufacturer/${params[0]}/p${params[1]}`;
+      break;
+  }
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(products => displayProducts(products))
+    .catch(error => console.error('Error loading products:', error));
+}

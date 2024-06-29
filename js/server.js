@@ -12,16 +12,11 @@ app.get('/endpoint', (req, res) => {
   res.json({ message: 'Hello from localhost!' });
 });
 
-app.get('/product/manufacturer/:manufacturerName-:manufacturerId/p:page', async (req, res) => {
-  const { manufacturerName, manufacturerId, page} = req.params;
-
-  if (isNaN(parseInt(manufacturerId)) || isNaN(parseInt(page))) {
-    res.status(400).json({ error: 'Invalid parameters: id and page must be integers.' });
-    return;
-  }
+app.get('/product/manufacturer/:manufacturerName/p:page', async (req, res) => {
+  const { manufacturerName, page} = req.params;
 
   try {
-    const response = await fetch(`${Backend_Url}/product/manufacturer/${manufacturerName}-${manufacturerId}/p${page}`);
+    const response = await fetch(`${Backend_Url}/product/manufacturer/${manufacturerName}/p${page}`);
     if (response.status === 404) {
       // If the response status is 404, redirect to the custom 404 page
       res.redirect('/404.html');
