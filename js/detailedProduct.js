@@ -1,3 +1,4 @@
+const Proxy_Url = 'http://localhost:3000';
 document.addEventListener('DOMContentLoaded', function() {
   // Define the properties for the navigation panel
   const homeLink = '<a href="MainPage.html">Начало</a>';
@@ -6,13 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
   }
-
   // Get the productCode from the URL
   const productCode = getQueryParam('productCode');
 
   // Function to fetch product information from the backend
   function fetchProductInfo(productCode) {
-
     const backendUrl = `${Proxy_Url}/product/${productCode}?id=6`; // Replace '12345' with the appropriate ID if needed
     fetch(backendUrl)
       .then(response => response.json())
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const category = data.categoryName;
         const name = data.name;
         // Update the navigation text
-        const updatedCategoryLink = `<a href="Manufacturers_products.html?category=${category}&p=0">${category}</a>`;
+        const updatedCategoryLink = `<a href="Manufacturers_products.html?category=${category}&p=1">${category}</a>`;
         document.getElementById('navigation-text').innerHTML = `${homeLink} / ${updatedCategoryLink} / ${name}`;
         // Update the product details section
         updateProductDetails(data);

@@ -1,4 +1,4 @@
-const Proxy_Url = 'http://localhost:3000';
+let Proxy_Url = 'http://localhost:3000';
 const pageName = `Manufacturers_products.html`;
 async function getProducts(url) {
   try {

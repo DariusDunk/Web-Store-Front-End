@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function categoryNames() {
   const categoryMenu = document.getElementById('category-menu');
 
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function categoryNames() {
     .catch(error => {
       console.error('Error fetching menu items:', error);
     });
-})
+});
 function toggleDropdown() {
   const dropdown = document.getElementById('userDropdown');
   dropdown.classList.toggle('show');
