@@ -6,6 +6,7 @@ const Backend_Url = 'http://localhost:1620';
 
 const http = require('http');
 const url = require('url');
+const {response, request} = require("express");
 
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
@@ -106,4 +107,29 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 
+app.get('/product/:productCode', async (req, res)=>{
+  const { productCode } = req.params; // Extracting path variable
+  const { id } = req.query; // Extracting query parameter
 
+  if (!productCode || !id) {
+    return res.status(400).json({ error: 'Missing required parameters' });
+  }
+  try {
+    // Construct the backend URL with the received path variable and query parameters
+    const backendUrl = `${Backend_Url}/product/${productCode}?id=${id}`;
+    const response = await fetch(backendUrl);
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok ' + response.statusText);
+    }
+
+    const data = await response.json();
+
+    // Send the data received from the backend to the client
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data from backend:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+
+});

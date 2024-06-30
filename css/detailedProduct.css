@@ -1,0 +1,19 @@
+.navigation-panel {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.navigation-panel p {
+  font-style: italic;
+  margin: 0;
+}
+
+.navigation-panel a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.navigation-panel a:hover {
+  text-decoration: underline;
+}
