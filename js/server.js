@@ -8,6 +8,7 @@ const http = require('http');
 const url = require('url');
 const {response, request} = require("express");
 
+//TODO delete below?
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const pathname = parsedUrl.pathname;
@@ -111,8 +112,6 @@ app.get('/product/:productCode', async (req, res)=>{
   const { productCode } = req.params; // Extracting path variable
   const { id } = req.query; // Extracting query parameter
 
-
-  // console.log(`Query param name: ${searchParams}`);
   if (!productCode || !id) {
     return res.status(400).json({ error: 'Missing required parameters' });
   }

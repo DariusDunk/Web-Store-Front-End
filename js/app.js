@@ -3,7 +3,7 @@ const Proxy_Url = 'http://localhost:3000';
 async function getProducts(url) {
   try {
     const response = await fetch(url);
-    console.log(`Fetch url: ${url}`);
+    // console.log(`Fetch url: ${url}`);
     const data = await response.json();
     const products = data.content;
     const totalPages = data.page.totalPages;
@@ -86,7 +86,6 @@ async function getProducts(url) {
     let urlContents = url.split("/");
 
     const page = urlContents[urlContents.length - 1].substring(1);
-    console.log(`current page: ${page}`);
 
     updatePagination(totalPages - 1, parseInt(page));
   } catch (error) {
@@ -181,7 +180,6 @@ function updatePagination(lastPage, currentPage) {
       pageButton.textContent = currPageNum;
       pageButton.classList.add('pagination-button');
       pageButton.addEventListener('click', () => {
-        console.log(`page num inside action listener : ${currPageNum}`);
         urlContents[urlContents.length - 1] = `p${currPageNum - 1}`;
         url = urlContents.join("/");
         getProducts(url);
@@ -231,21 +229,12 @@ function modeHandler() {
   const path = window.location.pathname;
   let searchParams = new URLSearchParams(window.location.search);
 
-  console.log("With for() ");
-
-  for (const param of searchParams) {
-    console.log(param);
-  }
-  console.log("Without for() ");
-
   const paramEntries = searchParams.entries();
 
   let modeQueryPair = paramEntries.next().value;
-  console.log(modeQueryPair);
   const mode = modeQueryPair[0];
   const modeDetails = modeQueryPair[1];
   let pageQueryPair = paramEntries.next().value;
-  console.log(pageQueryPair);
   const page = pageQueryPair[1];
   let fetchUrl = ``;
 
@@ -269,7 +258,7 @@ function modeHandler() {
       fetchUrl = `${Proxy_Url}/product/manufacturer/Gardenia/p0`;
       break;
   }
-  console.log(`URL: ${fetchUrl.valueOf()}`);
+  // console.log(`URL: ${fetchUrl.valueOf()}`);
   getProducts(fetchUrl);
 
 }

@@ -9,14 +9,6 @@ document.addEventListener('DOMContentLoaded', function categoryNames() {
         // a.href = item; // Adjust based on your API response
         a.href = `Manufacturers_products.html?category=${item}&p=0`; // Adjust based on your API response
         a.textContent = item; // Adjust based on your API response
-
-        a.addEventListener('click', function getByCategory(event){
-          // event.preventDefault();
-          // sessionStorage.setItem("product_page_mode", "category");
-          // sessionStorage.setItem("product_page_details", item);
-          // window.location.href = `http://localhost:63342/EComerseWebsite/Manufacturers_products.html?_ijt=ranl85f48jn0lbkqi3btvhbisn&_ij_reload=RELOAD_ON_SAVE`;
-        })
-
         categoryMenu.appendChild(a);
       });
     })

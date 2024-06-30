@@ -1,12 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Define the properties for the navigation panel
   const homeLink = '<a href="MainPage.html">Начало</a>';
-  const searchParams = new URLSearchParams(window.location.search);//TODO delete
-  console.log("query params:");
-
-  for (const param of searchParams) {
-    console.log(param);
-  }
   // Function to get query parameters
   function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
@@ -20,14 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
   function fetchProductInfo(productCode) {
 
     const backendUrl = `${Proxy_Url}/product/${productCode}?id=6`; // Replace '12345' with the appropriate ID if needed
-    console.log(`BackendURL: ${backendUrl}`);
     fetch(backendUrl)
       .then(response => response.json())
       .then(data => {
         // Assuming the response data has a structure like { category: 'Category Name', name: 'Product Name', ... }
         const category = data.categoryName;
         const name = data.name;
-
         // Update the navigation text
         const updatedCategoryLink = `<a href="Manufacturers_products.html?category=${category}&p=0">${category}</a>`;
         document.getElementById('navigation-text').innerHTML = `${homeLink} / ${updatedCategoryLink} / ${name}`;
