@@ -271,44 +271,7 @@ function modeHandler() {
   }
   console.log(`URL: ${fetchUrl.valueOf()}`);
   getProducts(fetchUrl);
-  // console.log(`query params: ${paramVal[0]}`);
-  //
-  // for (const param of searchParams) {
-  //   console.log(param);
-  // }
-
-  // const mode = find(searchParams.keys());
-
-
-  // if (path.includes("/EComerseWebsite/Manufacturers_products.html"))
-  // {
-  //   // Define an array to hold the parameters needed for each mode
-  //   let url = ``;
-  //   const modeDetails = sessionStorage.getItem("product_page_details");
-  //   // Populate the params array based on the mode
-  //   switch (sessionStorage.getItem("product_page_mode")) {
-  //     case "manufacturer":
-  //       sessionStorage.setItem("product_url",`${Proxy_Url}/product/manufacturer/${modeDetails}/p${page}`);
-  //       // url = `${Proxy_Url}/product/manufacturer/${modeDetails}/p${page}`;
-  //       break;
-  //     case "category":
-  //       sessionStorage.setItem("product_url",`${Proxy_Url}/product/category/${modeDetails}/p${page}`);
-  //       break;
-  //     case "search":
-  //       url = [urlParams.get('searchTerm')];
-  //       break;
-  //     case "filter":
-  //       url = [urlParams.get('filterQuery')];
-  //       break;
-  //     default:
-  //       sessionStorage.setItem("product_url",`${Proxy_Url}/product/manufacturer/Gardenia/p0`);
-  //       break;
-  //   }
-  //   url = sessionStorage.getItem("product_url");
-  //
-  // }
 
 }
-
 
 //TODO preimenuvai na products.js ili ne6to i smeni izvikvaniqta v drugite fajlove

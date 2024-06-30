@@ -1,9 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Define the properties for the navigation panel
   const homeLink = '<a href="MainPage.html">Начало</a>';
-  const categoryLink = '<a href="Manufacturers_products.html">Category Name</a>';
-  const productName = 'Product Name'; // Placeholder, will be updated later
-
   const searchParams = new URLSearchParams(window.location.search);//TODO delete
   console.log("query params:");
 
@@ -32,10 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const name = data.name;
 
         // Update the navigation text
-        const updatedCategoryLink = `<a href="Manufacturers_products.html">${category}</a>`;
+        const updatedCategoryLink = `<a href="Manufacturers_products.html?category=${category}&p=0">${category}</a>`;
         document.getElementById('navigation-text').innerHTML = `${homeLink} / ${updatedCategoryLink} / ${name}`;
-
-
         // Update the product details section
         updateProductDetails(data);
       })
