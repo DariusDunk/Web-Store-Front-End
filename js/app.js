@@ -1,9 +1,9 @@
 const Proxy_Url = 'http://localhost:3000';
-
+const pageName = `Manufacturers_products.html`;
 async function getProducts(url) {
   try {
     const response = await fetch(url);
-    // console.log(`Fetch url: ${url}`);
+    console.log(`Fetch url: ${url}`);
     const data = await response.json();
     const products = data.content;
     const totalPages = data.page.totalPages;
@@ -82,24 +82,28 @@ async function getProducts(url) {
       productDiv.appendChild(productLink);
       productContainer.appendChild(productDiv);
     });
-
-    let urlContents = url.split("/");
-
-    const page = urlContents[urlContents.length - 1].substring(1);
-
-    updatePagination(totalPages - 1, parseInt(page));
+    updatePagination(totalPages-1);
   } catch (error) {
     console.error('Error fetching products:', error);
   }
 }
 
-function updatePagination(lastPage, currentPage) {
+function updatePagination(lastPage) {
   const paginationContainer = document.getElementById('paginationContainer');
   paginationContainer.innerHTML = ''; // Clear existing pagination
 
-  let url = sessionStorage.getItem("product_url");
+  let searchParams = new URLSearchParams(window.location.search);
+  const paramEntries = searchParams.entries();
+  let modeQueryPair = paramEntries.next().value;
+  const mode = modeQueryPair[0];
+  const modeDetails = modeQueryPair[1];
+  let pageQueryPair = paramEntries.next().value;
+  const pageQueryParam = pageQueryPair[0];
+  let currentPage = parseInt(pageQueryPair[1])-1;
+  const currUrl = `${pageName}?${mode}=${modeDetails}&${pageQueryParam}=`;
+  let url = ``;
 
-  let urlContents = url.split('/');
+  // console.log(`current Page: ${currentPage} last page: ${lastPage}`);
 
   const pagination = document.createElement('div');
   pagination.classList.add('pagination');
@@ -112,10 +116,9 @@ function updatePagination(lastPage, currentPage) {
     prevDoubleButton.classList.add('disabled');
   } else {
     prevDoubleButton.addEventListener('click', () => {
-
-      urlContents[urlContents.length - 1] = `p${0}`;
-      url = urlContents.join("/");
-      getProducts(url);
+      url = currUrl+1;
+      // getProducts(url);
+      window.location.href=url;
     });
   }
   pagination.appendChild(prevDoubleButton);
@@ -128,9 +131,9 @@ function updatePagination(lastPage, currentPage) {
     prevButton.classList.add('disabled');
   } else {
     prevButton.addEventListener('click', () => {
-      urlContents[urlContents.length - 1] = `p${currentPage - 1}`;
-      url = urlContents.join("/");
-      getProducts(url);
+      url = currUrl + currentPage;
+      // getProducts(url);
+      window.location.href=url;
     });
   }
   pagination.appendChild(prevButton);
@@ -153,13 +156,13 @@ function updatePagination(lastPage, currentPage) {
   if (maxPrevPages) {
     for (let i = 1; i <= maxPrevPages; i++) {
       const pageButton = document.createElement('span');
-      const currPageNum = parseInt(currentPage) + 1 - i;
-      pageButton.textContent = currPageNum;
+      let prevPageInteger = parseInt(currentPage) + 1 - i;
+      pageButton.textContent = prevPageInteger;
       pageButton.classList.add('pagination-button');
       pageButton.addEventListener('click', () => {
-        urlContents[urlContents.length - 1] = `p${currentPage - i}`;
-        url = urlContents.join("/");
-        getProducts(url);
+        url = currUrl+(prevPageInteger);
+        // getProducts(url);
+        window.location.href=url;
       });
       pagination.appendChild(pageButton);
     }
@@ -176,13 +179,15 @@ function updatePagination(lastPage, currentPage) {
   if (maxNextPages) {
     for (let i = 1; i <= maxNextPages; i++) {
       const pageButton = document.createElement('span');
-      const currPageNum = parseInt(parseInt(currentPage) + 1 + i);
-      pageButton.textContent = currPageNum;
+      let nextPageInteger = parseInt(currentPage) + 1 + i;
+      pageButton.textContent = nextPageInteger;
       pageButton.classList.add('pagination-button');
       pageButton.addEventListener('click', () => {
-        urlContents[urlContents.length - 1] = `p${currPageNum - 1}`;
-        url = urlContents.join("/");
-        getProducts(url);
+        // urlContents[urlContents.length - 1] = `p${nextPageInteger - 1}`;
+        // nextPageInteger --;
+        url = currUrl+(nextPageInteger);
+        // getProducts(url);
+        window.location.href=url;
       });
       pagination.appendChild(pageButton);
     }
@@ -196,14 +201,15 @@ function updatePagination(lastPage, currentPage) {
     nextButton.classList.add('disabled');
   } else {
     nextButton.addEventListener('click', () => {
-      urlContents[urlContents.length - 1] = `p${currentPage + 1}`;
-      url = urlContents.join("/");
-      getProducts(url);
+      // urlContents[urlContents.length - 1] = `p${currentPage + 1}`;
+      url = currUrl+ (currentPage+2);
+      // getProducts(url);
+      window.location.href=url;
     });
   }
   pagination.appendChild(nextButton);
 
-  // Next double arrow button
+  // final page
   const nextDoubleButton = document.createElement('span');
   nextDoubleButton.innerHTML = '&gt;&gt;';
   nextDoubleButton.classList.add('pagination-button');
@@ -211,9 +217,10 @@ function updatePagination(lastPage, currentPage) {
     nextDoubleButton.classList.add('disabled');
   } else {
     nextDoubleButton.addEventListener('click', () => {
-      urlContents[urlContents.length - 1] = `p${lastPage};`
-      url = urlContents.join("/");
-      getProducts(url);
+      // urlContents[urlContents.length - 1] = `p${lastPage};`
+      url = currUrl+(lastPage+1);
+      // getProducts(url);
+      window.location.href=url;
     });
   }
   pagination.appendChild(nextDoubleButton);
@@ -225,17 +232,15 @@ document.addEventListener('DOMContentLoaded', modeHandler());
 
 function modeHandler() {
 
-  // Get the current URL path
-  const path = window.location.pathname;
+
   let searchParams = new URLSearchParams(window.location.search);
-
   const paramEntries = searchParams.entries();
-
   let modeQueryPair = paramEntries.next().value;
   const mode = modeQueryPair[0];
   const modeDetails = modeQueryPair[1];
   let pageQueryPair = paramEntries.next().value;
-  const page = pageQueryPair[1];
+  const page = pageQueryPair[1]-1;
+  console.log(`url page -1 = ${page}`);
   let fetchUrl = ``;
 
   switch (mode) {
@@ -255,7 +260,7 @@ function modeHandler() {
       break;
     default:
       // sessionStorage.setItem("product_url",);
-      fetchUrl = `${Proxy_Url}/product/manufacturer/Gardenia/p0`;
+      fetchUrl = `${Proxy_Url}/product/manufacturer/Gardenia/p1`;
       break;
   }
   // console.log(`URL: ${fetchUrl.valueOf()}`);
