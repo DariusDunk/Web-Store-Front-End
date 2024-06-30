@@ -1,16 +1,11 @@
 const Proxy_Url = 'http://localhost:3000';
 
-async function getProducts(page=0) {
-  const manufacturerName = "Gardenia"; // Replace with actual manufacturer name
-
-  if (typeof page!='number'){
-    page=0;
-  }
-
-  const url = `${Proxy_Url}/product/manufacturer/${manufacturerName}/p${page}`;
+async function getProducts( url ) {
+  const category = "Мотокултиватор"; // Replace with actual manufacturer name
 
   try {
     const response = await fetch(url);
+    console.log(`Fetch url: ${url}`);
     const data = await response.json();
     const products = data.content;
     const totalPages = data.page.totalPages;
@@ -89,7 +84,13 @@ async function getProducts(page=0) {
       productDiv.appendChild(productLink);
       productContainer.appendChild(productDiv);
     });
-    updatePagination(totalPages-1, page);
+
+    let urlContents =url.split("/");
+
+    const page = urlContents[urlContents.length - 1].substring(1);
+    console.log(`current page: ${page}`);
+
+    updatePagination(totalPages-1, parseInt(page));
   } catch (error) {
     console.error('Error fetching products:', error);
   }
@@ -98,6 +99,10 @@ async function getProducts(page=0) {
 function updatePagination(lastPage, currentPage) {
   const paginationContainer = document.getElementById('paginationContainer');
   paginationContainer.innerHTML = ''; // Clear existing pagination
+
+  let url = sessionStorage.getItem("product_url");
+
+  let urlContents = url.split('/');
 
   const pagination = document.createElement('div');
   pagination.classList.add('pagination');
@@ -110,7 +115,10 @@ function updatePagination(lastPage, currentPage) {
     prevDoubleButton.classList.add('disabled');
   } else {
     prevDoubleButton.addEventListener('click', () => {
-      getProducts(0);
+
+      urlContents[urlContents.length-1] = `p${0}`;
+      url = urlContents.join("/");
+      getProducts(url);
     });
   }
   pagination.appendChild(prevDoubleButton);
@@ -123,7 +131,9 @@ function updatePagination(lastPage, currentPage) {
     prevButton.classList.add('disabled');
   } else {
     prevButton.addEventListener('click', () => {
-      getProducts(currentPage - 1);
+      urlContents[urlContents.length-1] = `p${currentPage-1}`;
+      url = urlContents.join("/");
+      getProducts(url);
     });
   }
   pagination.appendChild(prevButton);
@@ -149,19 +159,20 @@ function updatePagination(lastPage, currentPage) {
   if (maxPrevPages) {
     for (let i = 1; i <= maxPrevPages; i++) {
       const pageButton = document.createElement('span');
-      pageButton.textContent = currentPage + 1 - i;
+      const currPageNum = parseInt(currentPage) + 1 - i;
+      pageButton.textContent = currPageNum;
       pageButton.classList.add('pagination-button');
       pageButton.addEventListener('click', () => {
-        getProducts(currentPage - i);
+        urlContents[urlContents.length-1] = `p${currentPage-i}`;
+        url = urlContents.join("/");
+        getProducts(url);
       });
-
       pagination.appendChild(pageButton);
     }
   }
-
     //Current Page
   const currentPageVisual = document.createElement('span');
-  currentPageVisual.textContent = currentPage+1;
+  currentPageVisual.textContent = parseInt(currentPage)+1;
   currentPageVisual.classList.add('pagination-button');
   currentPageVisual.classList.add('disabled');
   currentPageVisual.classList.add('pagination-button-current')
@@ -171,12 +182,15 @@ function updatePagination(lastPage, currentPage) {
   if (maxNextPages) {
     for (let i = 1; i <= maxNextPages; i++) {
       const pageButton = document.createElement('span');
-      pageButton.textContent = currentPage+1 + i;
+      const currPageNum = parseInt(parseInt(currentPage) + 1 + i);
+      pageButton.textContent = currPageNum;
       pageButton.classList.add('pagination-button');
       pageButton.addEventListener('click', () => {
-          getProducts(currentPage+i);
+        console.log(`page num inside action listener : ${currPageNum}`);
+        urlContents[urlContents.length-1] = `p${currPageNum-1}`;
+        url = urlContents.join("/");
+          getProducts(url);
         });
-
       pagination.appendChild(pageButton);
     }
   }
@@ -189,7 +203,9 @@ function updatePagination(lastPage, currentPage) {
     nextButton.classList.add('disabled');
   } else {
     nextButton.addEventListener('click', () => {
-      getProducts(currentPage + 1);
+      urlContents[urlContents.length-1] = `p${currentPage+1}`;
+      url = urlContents.join("/");
+      getProducts(url);
     });
   }
   pagination.appendChild(nextButton);
@@ -202,83 +218,53 @@ function updatePagination(lastPage, currentPage) {
     nextDoubleButton.classList.add('disabled');
   } else {
     nextDoubleButton.addEventListener('click', () => {
-      getProducts(lastPage);
+      urlContents[urlContents.length-1] = `p${lastPage};`
+      url = urlContents.join("/");
+      getProducts(url);
     });
   }
   pagination.appendChild(nextDoubleButton);
   paginationContainer.appendChild(pagination);
 }
 
-// function loadProducts(mode,params) {
-//   let apiUrl = '';
-//   switch (mode) {
-//     case 'manufacturer':
-//        apiUrl = `${Proxy_Url}/product/manufacturer/${params[0]}/p${params[1]}`;
-//       break;
-//     case 'category':
-//       const categoryId = urlParams.get('categoryId');
-//       apiUrl = `/api/products?category=${categoryId}`;
-//       break;
-//     case 'search':
-//       const searchTerm = urlParams.get('searchTerm');
-//       apiUrl = `/api/products?search=${searchTerm}`;
-//       break;
-//     case 'filter':
-//       const filterQuery = urlParams.get('filterQuery');
-//       apiUrl = `/api/products?filter=${filterQuery}`;
-//       break;
-//     default:
-//       apiUrl = `${Proxy_Url}/product/manufacturer/${params[0]}/p${params[1]}`;
-//       break;
-//   }
-//
-//   fetch(apiUrl)
-//     .then(response => response.json())
-//     .then(products => displayProducts(products))
-//     .catch(error => console.error('Error loading products:', error));
-// }
-//
-//
-// document.addEventListener('DOMContentLoaded', function (mode) {
-//
-//   // Define an array to hold the parameters needed for each mode
-//   let params = [];
-//
-//   // Populate the params array based on the mode
-//   switch (mode) {
-//     case 'manufacturer':
-//       params = [urlParams.get('manufacturerId')];
-//       break;
-//     case 'category':
-//       params = [urlParams.get('categoryId')];
-//       break;
-//     case 'search':
-//       params = [urlParams.get('searchTerm')];
-//       break;
-//     case 'filter':
-//       params = [urlParams.get('filterQuery')];
-//       break;
-//     default:
-//       params = ['Gardenia',0];
-//       break;
-//   }
-// });
 
 
-document.addEventListener('DOMContentLoaded', function categoryNames() {
-  const categoryMenu = document.getElementById('category-menu');
+document.addEventListener('DOMContentLoaded', modeHandler(0));
+function modeHandler(page=0) {
 
-  fetch(`${Proxy_Url}/category/names`) // Replace with your API endpoint
-    .then(response => response.json())
-    .then(data => {
-      data.forEach(item => {
-        const a = document.createElement('a');
-        a.href = item; // Adjust based on your API response
-        a.textContent = item; // Adjust based on your API response
-        categoryMenu.appendChild(a);
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching menu items:', error);
-    });
-});
+  // Get the current URL path
+  const path = window.location.pathname;
+
+  if (path.includes("/EComerseWebsite/Manufacturers_products.html"))
+  {
+    // Define an array to hold the parameters needed for each mode
+    let url = ``;
+    const modeDetails = sessionStorage.getItem("product_page_details");
+    // Populate the params array based on the mode
+    switch (sessionStorage.getItem("product_page_mode")) {
+      case "manufacturer":
+        sessionStorage.setItem("product_url",`${Proxy_Url}/product/manufacturer/${modeDetails}/p${page}`);
+        // url = `${Proxy_Url}/product/manufacturer/${modeDetails}/p${page}`;
+        break;
+      case "category":
+        sessionStorage.setItem("product_url",`${Proxy_Url}/product/category/${modeDetails}/p${page}`);
+        break;
+      case "search":
+        url = [urlParams.get('searchTerm')];
+        break;
+      case "filter":
+        url = [urlParams.get('filterQuery')];
+        break;
+      default:
+        sessionStorage.setItem("product_url",`${Proxy_Url}/product/manufacturer/Gardenia/p0`);
+        break;
+    }
+    url = sessionStorage.getItem("product_url");
+    console.log(`URL: ${url}`);
+    getProducts( url);
+  }
+
+}
+
+
+//TODO preimenuvai na products.js ili ne6to i smeni izvikvaniqta v drugite fajlove

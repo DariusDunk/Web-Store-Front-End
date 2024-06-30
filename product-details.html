@@ -2,11 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AGROMAG</title>
+  <title id="title">Title</title>
   <link rel="stylesheet" href="css/menu.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/paging.css">
 </head>
 <body>
 <header>
@@ -58,27 +55,8 @@
     </div>
   </div>
 </header>
-<main>
-  <div class="product-container" id="productContainer"></div>
-  <br>
-  <div class="pagination-container" id="paginationContainer"></div>
-</main>
 <script src="js/app.js"></script>
 <script src="js/menu.js"></script>
-<script>
-  // function toggleDropdown() {
-  //   const dropdown = document.getElementById('userDropdown');
-  //   dropdown.classList.toggle('show');
-  // }
-  // window.onclick = function(event) {
-  //   if (!event.target.matches('.profile-container') && !event.target.matches('.username') && !event.target.matches('.profile-image')) {
-  //     const dropdown = document.getElementById('userDropdown');
-  //     if (dropdown.classList.contains('show')) {
-  //       dropdown.classList.remove('show');
-  //     }
-  //   }
-  // }
-  document.addEventListener('DOMContentLoaded', getProducts);
-</script>
+<script src="js/detailedProduct.js"></script>
 </body>
 </html>
