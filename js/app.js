@@ -228,11 +228,7 @@ function updatePagination(lastPage) {
 }
 
 
-document.addEventListener('DOMContentLoaded', modeHandler());
-
-function modeHandler() {
-
-
+document.addEventListener('DOMContentLoaded', function modeHandler() {
   let searchParams = new URLSearchParams(window.location.search);
   const paramEntries = searchParams.entries();
   let modeQueryPair = paramEntries.next().value;
@@ -242,7 +238,6 @@ function modeHandler() {
   const page = pageQueryPair[1]-1;
   console.log(`url page -1 = ${page}`);
   let fetchUrl = ``;
-
   switch (mode) {
     case "manufacturer":
       // sessionStorage.setItem("product_url",`${Proxy_Url}/product/manufacturer/${modeDetails}/p${page}`);
@@ -265,7 +260,6 @@ function modeHandler() {
   }
   // console.log(`URL: ${fetchUrl.valueOf()}`);
   getProducts(fetchUrl);
-
-}
+});
 
 //TODO preimenuvai na products.js ili ne6to i smeni izvikvaniqta v drugite fajlove

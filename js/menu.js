@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function categoryNames() {
       data.forEach(item => {
         const a = document.createElement('a');
         // a.href = item; // Adjust based on your API response
-        a.href = `Manufacturers_products.html?category=${item}&p=0`; // Adjust based on your API response
+        a.href = `Manufacturers_products.html?category=${item}&p=1`; // Adjust based on your API response
         a.textContent = item; // Adjust based on your API response
         categoryMenu.appendChild(a);
       });
