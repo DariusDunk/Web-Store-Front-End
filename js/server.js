@@ -111,6 +111,8 @@ app.get('/product/:productCode', async (req, res)=>{
   const { productCode } = req.params; // Extracting path variable
   const { id } = req.query; // Extracting query parameter
 
+
+  // console.log(`Query param name: ${searchParams}`);
   if (!productCode || !id) {
     return res.status(400).json({ error: 'Missing required parameters' });
   }
@@ -122,10 +124,9 @@ app.get('/product/:productCode', async (req, res)=>{
     if (!response.ok) {
       throw new Error('Network response was not ok ' + response.statusText);
     }
-
     const data = await response.json();
-
     // Send the data received from the backend to the client
+
     res.json(data);
   } catch (error) {
     console.error('Error fetching data from backend:', error);
