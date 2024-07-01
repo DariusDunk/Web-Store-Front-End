@@ -142,28 +142,41 @@ document.addEventListener('DOMContentLoaded', function() {
     productDetailsDiv.appendChild(detailsContainerDiv);
 
     // Event listeners and fetch POST request handling
-    favoritesButton.addEventListener('click', async () => {
-      const response = await fetch('favorites_endpoint', {
-        method: 'POST',
-        body: JSON.stringify({ productId: productData.id }),
-        headers: { 'Content-Type': 'application/json' }
+    favoritesButton.addEventListener('click', async () => {//TODO change to deleting favourite when classList of button contains 'active'
+      let response;
+      let requestBody = JSON.stringify({
+        customerId: 6,
+        productCode: productData.productCode
       });
-
+      if (favoritesButton.classList.contains('active')) {
+        response = await fetch(`${Proxy_Url}/customer/removefav`, {
+          method: 'DELETE',
+          body: requestBody,
+          headers: {'Content-Type': 'application/json'}
+        });
+      } else {
+        response = await fetch(`${Proxy_Url}/customer/addfavourite`, {
+            method: 'POST',
+            body: requestBody,
+            headers: {'Content-Type': 'application/json'}
+          }
+        )
+      }
       const message = await response.text();
       alert(message);
-
-      if (response.status === 200) {
+      if (response.ok) {
         if (favoritesButton.classList.contains('active')) {
           favoritesButton.classList.remove('active');
           favoritesButton.innerHTML = '<i class="unfilled-heart-icon"></i> Добави в любими';
-        } else {
+        }
+       else {
           favoritesButton.classList.add('active');
           favoritesButton.innerHTML = '<i class="filled-heart-icon"></i> Премахни от любими';
-        }
       }
+    }
     });
 
-    cartButton.addEventListener('click', async () => {
+    cartButton.addEventListener('click', async () => {//TODO do
       const response = await fetch('cart_endpoint', {
         method: 'POST',
         body: JSON.stringify({ productId: productData.id }),
@@ -186,22 +199,19 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 
-    // Initial state check for the favorites button
-    if (0) {
+    // Initial state check for the favorites button TODO make ifs check for class list of buttons containing 'active'
+    if (productData.inFavourites) {
       favoritesButton.classList.add('active');
       favoritesButton.innerHTML = '<i class="filled-heart-icon"></i> Премахни от любими';
     }
 
     // Initial state check for the cart button
-    if (0) {
+    if (productData.inCart) {
       cartButton.classList.add('active');
       cartButton.style.backgroundColor = 'green';
       cartButton.innerHTML = '<i class="cart-icon"></i> Премахни от количката';
     }
   }
-
-
-
 
   // Fetch product information if productCode is present
   if (productCode) {

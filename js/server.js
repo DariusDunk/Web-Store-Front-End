@@ -102,11 +102,40 @@ app.get('/product/category/:categoryName/p:page', async (req, res) => {
   }
 });
 
-
-// Start the server
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+app.use(express.json());
+app.post(`/customer/addfavourite`, async (req, res)=>{
+  try{
+    const response = await fetch(`${Backend_Url}/customer/addfavourite`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(req.body)
+  });
+    const responseData = await response.text();
+    res.json(responseData);
+  }
+ catch (error) {
+  console.error('Error:', error);
+  res.status(500).json({ error: 'Internal server error' });
+}
 });
+
+app.delete(`/customer/removefav`, async (req, res)=>{
+  try {
+  const response = await fetch(`${Backend_Url}/customer/removefav`,{
+    method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(req.body)
+  });
+    const responseData = await response.text();
+    res.json(responseData);
+  } catch (error)
+  {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
 
 app.get('/product/:productCode', async (req, res)=>{
   const { productCode } = req.params; // Extracting path variable
@@ -131,5 +160,9 @@ app.get('/product/:productCode', async (req, res)=>{
     console.error('Error fetching data from backend:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+});
 
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
