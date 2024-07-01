@@ -1,3 +1,4 @@
+/* Existing styles */
 .navigation-panel {
   background-color: #f4f4f4;
   padding: 10px;
@@ -17,7 +18,8 @@
 .navigation-panel a:hover {
   text-decoration: underline;
 }
-/* styles.css */
+
+/* Existing product-details styles */
 .product-details {
   display: flex;
   justify-content: space-between;
@@ -31,9 +33,9 @@
   flex: 1;
   padding-right: 20px;
   margin-right: 20px;
-
 }
-.product-image img{
+
+.product-image img {
   width: 100%;
   height: 100%;
 }
@@ -59,18 +61,44 @@
 .product-attributes a:hover {
   text-decoration: underline;
 }
-.product-details {
-  display: flex;
-}
 
-.product-image {
-  margin-right: 20px;
-}
-
+/* New styles for the buttons */
 .details-container {
-  /*display: flex;*/
-  /*flex-direction: column;*/
   margin-top: 10px;
 }
 
+.product-buttons {
+  display: flex;
+  gap: 10px; /* Add space between the buttons */
+  margin-top: 10px; /* Add margin to the top of the buttons container */
+}
 
+button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+button .unfilled-heart-icon:before {
+  content: '\2661'; /* Unicode for unfilled heart */
+  margin-right: 5px;
+}
+
+button .filled-heart-icon:before {
+  content: '\2665'; /* Unicode for filled heart */
+  margin-right: 5px;
+}
+
+button .cart-icon:before {
+  content: '\1F6D2'; /* Unicode for shopping cart */
+  margin-right: 5px;
+}
+
+button.active {
+  background-color: var(--color-o); /* Change background color when active */
+}

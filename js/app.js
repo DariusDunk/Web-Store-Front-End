@@ -102,131 +102,127 @@ function updatePagination(lastPage) {
   let currentPage = parseInt(pageQueryPair[1])-1;
   const currUrl = `${pageName}?${mode}=${modeDetails}&${pageQueryParam}=`;
   let url = ``;
+   const pagination = document.createElement('div');
+    pagination.classList.add('pagination');
 
-  // console.log(`current Page: ${currentPage} last page: ${lastPage}`);
-
-  const pagination = document.createElement('div');
-  pagination.classList.add('pagination');
-
-  // First page button
-  const prevDoubleButton = document.createElement('span');
-  prevDoubleButton.innerHTML = '&lt;&lt;';
-  prevDoubleButton.classList.add('pagination-button');
-  if (currentPage === 0) {
-    prevDoubleButton.classList.add('disabled');
-  } else {
-    prevDoubleButton.addEventListener('click', () => {
-      url = currUrl+1;
-      // getProducts(url);
-      window.location.href=url;
-    });
-  }
-  pagination.appendChild(prevDoubleButton);
-
-  // Previous page button
-  const prevButton = document.createElement('span');
-  prevButton.innerHTML = '&lt;';
-  prevButton.classList.add('pagination-button');
-  if (currentPage === 0) {
-    prevButton.classList.add('disabled');
-  } else {
-    prevButton.addEventListener('click', () => {
-      url = currUrl + currentPage;
-      // getProducts(url);
-      window.location.href=url;
-    });
-  }
-  pagination.appendChild(prevButton);
-
-  let maxPrevPages = 0;
-  let maxNextPages = 0;
-  if (currentPage - 2 >= 0) {
-    maxPrevPages = 2;
-  } else if (currentPage - 1 >= 0) {
-    maxPrevPages = 1;
-  }
-
-  if (currentPage + 2 <= lastPage) {
-    maxNextPages = 2;
-  } else if (currentPage + 1 <= lastPage) {
-    maxNextPages = 1;
-  }
-
-  //prev 2 pages
-  if (maxPrevPages) {
-    for (let i = 1; i <= maxPrevPages; i++) {
-      const pageButton = document.createElement('span');
-      let prevPageInteger = parseInt(currentPage) + 1 - i;
-      pageButton.textContent = prevPageInteger;
-      pageButton.classList.add('pagination-button');
-      pageButton.addEventListener('click', () => {
-        url = currUrl+(prevPageInteger);
+    // First page button
+    const prevDoubleButton = document.createElement('span');
+    prevDoubleButton.innerHTML = '&lt;&lt;';
+    prevDoubleButton.classList.add('pagination-button');
+    if (currentPage === 0) {
+      prevDoubleButton.classList.add('disabled');
+    } else {
+      prevDoubleButton.addEventListener('click', () => {
+        url = currUrl + 1;
         // getProducts(url);
-        window.location.href=url;
+        window.location.href = url;
       });
-      pagination.appendChild(pageButton);
     }
-  }
-  //Current Page
-  const currentPageVisual = document.createElement('span');
-  currentPageVisual.textContent = parseInt(currentPage) + 1;
-  currentPageVisual.classList.add('pagination-button');
-  currentPageVisual.classList.add('disabled');
-  currentPageVisual.classList.add('pagination-button-current')
-  pagination.appendChild(currentPageVisual)
+    pagination.appendChild(prevDoubleButton);
 
-  //next 2 pages
-  if (maxNextPages) {
-    for (let i = 1; i <= maxNextPages; i++) {
-      const pageButton = document.createElement('span');
-      let nextPageInteger = parseInt(currentPage) + 1 + i;
-      pageButton.textContent = nextPageInteger;
-      pageButton.classList.add('pagination-button');
-      pageButton.addEventListener('click', () => {
-        // urlContents[urlContents.length - 1] = `p${nextPageInteger - 1}`;
-        // nextPageInteger --;
-        url = currUrl+(nextPageInteger);
+    // Previous page button
+    const prevButton = document.createElement('span');
+    prevButton.innerHTML = '&lt;';
+    prevButton.classList.add('pagination-button');
+    if (currentPage === 0) {
+      prevButton.classList.add('disabled');
+    } else {
+      prevButton.addEventListener('click', () => {
+        url = currUrl + currentPage;
         // getProducts(url);
-        window.location.href=url;
+        window.location.href = url;
       });
-      pagination.appendChild(pageButton);
     }
-  }
+    pagination.appendChild(prevButton);
 
-  // Next page button
-  const nextButton = document.createElement('span');
-  nextButton.innerHTML = '&gt;';
-  nextButton.classList.add('pagination-button');
-  if (currentPage === lastPage) {
-    nextButton.classList.add('disabled');
-  } else {
-    nextButton.addEventListener('click', () => {
-      // urlContents[urlContents.length - 1] = `p${currentPage + 1}`;
-      url = currUrl+ (currentPage+2);
-      // getProducts(url);
-      window.location.href=url;
-    });
-  }
-  pagination.appendChild(nextButton);
+    let maxPrevPages = 0;
+    let maxNextPages = 0;
+    if (currentPage - 2 >= 0) {
+      maxPrevPages = 2;
+    } else if (currentPage - 1 >= 0) {
+      maxPrevPages = 1;
+    }
 
-  // final page
-  const nextDoubleButton = document.createElement('span');
-  nextDoubleButton.innerHTML = '&gt;&gt;';
-  nextDoubleButton.classList.add('pagination-button');
-  if (currentPage === lastPage) {
-    nextDoubleButton.classList.add('disabled');
-  } else {
-    nextDoubleButton.addEventListener('click', () => {
-      // urlContents[urlContents.length - 1] = `p${lastPage};`
-      url = currUrl+(lastPage+1);
-      // getProducts(url);
-      window.location.href=url;
-    });
-  }
-  pagination.appendChild(nextDoubleButton);
-  paginationContainer.appendChild(pagination);
+    if (currentPage + 2 <= lastPage) {
+      maxNextPages = 2;
+    } else if (currentPage + 1 <= lastPage) {
+      maxNextPages = 1;
+    }
+
+    //prev 2 pages
+    if (maxPrevPages) {
+      for (let i = 1; i <= maxPrevPages; i++) {
+        const pageButton = document.createElement('span');
+        let prevPageInteger = parseInt(currentPage) + 1 - i;
+        pageButton.textContent = prevPageInteger;
+        pageButton.classList.add('pagination-button');
+        pageButton.addEventListener('click', () => {
+          url = currUrl + (prevPageInteger);
+          // getProducts(url);
+          window.location.href = url;
+        });
+        pagination.appendChild(pageButton);
+      }
+    }
+    //Current Page
+    const currentPageVisual = document.createElement('span');
+    currentPageVisual.textContent = parseInt(currentPage) + 1;
+    currentPageVisual.classList.add('pagination-button');
+    currentPageVisual.classList.add('disabled');
+    currentPageVisual.classList.add('pagination-button-current')
+    pagination.appendChild(currentPageVisual)
+
+    //next 2 pages
+    if (maxNextPages) {
+      for (let i = 1; i <= maxNextPages; i++) {
+        const pageButton = document.createElement('span');
+        let nextPageInteger = parseInt(currentPage) + 1 + i;
+        pageButton.textContent = nextPageInteger;
+        pageButton.classList.add('pagination-button');
+        pageButton.addEventListener('click', () => {
+          // urlContents[urlContents.length - 1] = `p${nextPageInteger - 1}`;
+          // nextPageInteger --;
+          url = currUrl + (nextPageInteger);
+          // getProducts(url);
+          window.location.href = url;
+        });
+        pagination.appendChild(pageButton);
+      }
+    }
+
+    // Next page button
+    const nextButton = document.createElement('span');
+    nextButton.innerHTML = '&gt;';
+    nextButton.classList.add('pagination-button');
+    if (currentPage === lastPage) {
+      nextButton.classList.add('disabled');
+    } else {
+      nextButton.addEventListener('click', () => {
+        // urlContents[urlContents.length - 1] = `p${currentPage + 1}`;
+        url = currUrl + (currentPage + 2);
+        // getProducts(url);
+        window.location.href = url;
+      });
+    }
+    pagination.appendChild(nextButton);
+
+    // final page
+    const nextDoubleButton = document.createElement('span');
+    nextDoubleButton.innerHTML = '&gt;&gt;';
+    nextDoubleButton.classList.add('pagination-button');
+    if (currentPage === lastPage) {
+      nextDoubleButton.classList.add('disabled');
+    } else {
+      nextDoubleButton.addEventListener('click', () => {
+        // urlContents[urlContents.length - 1] = `p${lastPage};`
+        url = currUrl + (lastPage + 1);
+        // getProducts(url);
+        window.location.href = url;
+      });
+    }
+    pagination.appendChild(nextDoubleButton);
+    paginationContainer.appendChild(pagination);
 }
-
 
 document.addEventListener('DOMContentLoaded', function modeHandler() {
   let searchParams = new URLSearchParams(window.location.search);
@@ -236,7 +232,8 @@ document.addEventListener('DOMContentLoaded', function modeHandler() {
   const modeDetails = modeQueryPair[1];
   let pageQueryPair = paramEntries.next().value;
   const page = pageQueryPair[1]-1;
-  console.log(`url page -1 = ${page}`);
+
+  // console.log(`url page -1 = ${page}`);
   let fetchUrl = ``;
   switch (mode) {
     case "manufacturer":

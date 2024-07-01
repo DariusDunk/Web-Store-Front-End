@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nameElement = document.createElement('h1');
     nameElement.textContent = productData.name;
     attributesDiv.appendChild(nameElement);
-    document.title = productData.name;
+
     const modelElement = document.createElement('p');
     const modelLabel = document.createElement('b');
     const modelText = document.createTextNode(productData.model);
@@ -116,10 +116,90 @@ document.addEventListener('DOMContentLoaded', function() {
     detailsContainerDiv.appendChild(attributesDiv);
     detailsContainerDiv.appendChild(descriptionDiv);
 
+    // Create the buttons container div
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.classList.add('product-buttons');
+
+    // Create the favorites button
+    const favoritesButton = document.createElement('button');
+    favoritesButton.classList.add('favorites-button');
+    favoritesButton.innerHTML = '<i class="unfilled-heart-icon"></i> Добави в любими';
+
+    // Create the cart button
+    const cartButton = document.createElement('button');
+    cartButton.classList.add('cart-button');
+    cartButton.innerHTML = '<i class="cart-icon"></i> Добави към количката';
+
+    // Append buttons to the buttons container
+    buttonsDiv.appendChild(favoritesButton);
+    buttonsDiv.appendChild(cartButton);
+
+    // Append the buttons container to the details container
+    detailsContainerDiv.appendChild(buttonsDiv);
+
     // Append the image div and the details container to the main container
     productDetailsDiv.appendChild(productImageDiv);
     productDetailsDiv.appendChild(detailsContainerDiv);
+
+    // Event listeners and fetch POST request handling
+    favoritesButton.addEventListener('click', async () => {
+      const response = await fetch('favorites_endpoint', {
+        method: 'POST',
+        body: JSON.stringify({ productId: productData.id }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      const message = await response.text();
+      alert(message);
+
+      if (response.status === 200) {
+        if (favoritesButton.classList.contains('active')) {
+          favoritesButton.classList.remove('active');
+          favoritesButton.innerHTML = '<i class="unfilled-heart-icon"></i> Добави в любими';
+        } else {
+          favoritesButton.classList.add('active');
+          favoritesButton.innerHTML = '<i class="filled-heart-icon"></i> Премахни от любими';
+        }
+      }
+    });
+
+    cartButton.addEventListener('click', async () => {
+      const response = await fetch('cart_endpoint', {
+        method: 'POST',
+        body: JSON.stringify({ productId: productData.id }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      const message = await response.text();
+      alert(message);
+
+      if (response.status === 200) {
+        if (cartButton.classList.contains('active')) {
+          cartButton.classList.remove('active');
+          cartButton.style.backgroundColor = '';
+          cartButton.innerHTML = '<i class="cart-icon"></i> Добави към количката';
+        } else {
+          cartButton.classList.add('active');
+          cartButton.style.backgroundColor = 'green';
+          cartButton.innerHTML = '<i class="cart-icon"></i> Премахни от количката';
+        }
+      }
+    });
+
+    // Initial state check for the favorites button
+    if (0) {
+      favoritesButton.classList.add('active');
+      favoritesButton.innerHTML = '<i class="filled-heart-icon"></i> Премахни от любими';
+    }
+
+    // Initial state check for the cart button
+    if (0) {
+      cartButton.classList.add('active');
+      cartButton.style.backgroundColor = 'green';
+      cartButton.innerHTML = '<i class="cart-icon"></i> Премахни от количката';
+    }
   }
+
 
 
 
