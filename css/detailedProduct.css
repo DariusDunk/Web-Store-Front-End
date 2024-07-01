@@ -30,6 +30,8 @@
 .product-image {
   flex: 1;
   padding-right: 20px;
+  margin-right: 20px;
+
 }
 .product-image img{
   width: 100%;
@@ -57,3 +59,18 @@
 .product-attributes a:hover {
   text-decoration: underline;
 }
+.product-details {
+  display: flex;
+}
+
+.product-image {
+  margin-right: 20px;
+}
+
+.details-container {
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  margin-top: 10px;
+}
+
+

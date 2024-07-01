@@ -48,6 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
     productImage.alt = productData.name;
     productImageDiv.appendChild(productImage);
 
+    // Create a container for the attributes and description
+    const detailsContainerDiv = document.createElement('div');
+    detailsContainerDiv.classList.add('details-container');
+
     // Create the attributes container div
     const attributesDiv = document.createElement('div');
     attributesDiv.classList.add('product-attributes');
@@ -56,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nameElement = document.createElement('h1');
     nameElement.textContent = productData.name;
     attributesDiv.appendChild(nameElement);
-
+    document.title = productData.name;
     const modelElement = document.createElement('p');
     const modelLabel = document.createElement('b');
     const modelText = document.createTextNode(productData.model);
@@ -96,10 +100,28 @@ document.addEventListener('DOMContentLoaded', function() {
       attributesDiv.appendChild(attributeElement);
     });
 
-    // Append both divs to the main container
+    // Create the description container div
+    const descriptionDiv = document.createElement('div');
+    descriptionDiv.classList.add('product-description');
+
+    // Split the product description by "\n" and add each part as a paragraph
+    const descriptionParts = productData.productDescription.split('\n');
+    descriptionParts.forEach(part => {
+      const paragraphElement = document.createElement('p');
+      paragraphElement.textContent = part;
+      descriptionDiv.appendChild(paragraphElement);
+    });
+
+    // Append the attributes and description divs to the details container
+    detailsContainerDiv.appendChild(attributesDiv);
+    detailsContainerDiv.appendChild(descriptionDiv);
+
+    // Append the image div and the details container to the main container
     productDetailsDiv.appendChild(productImageDiv);
-    productDetailsDiv.appendChild(attributesDiv);
+    productDetailsDiv.appendChild(detailsContainerDiv);
   }
+
+
 
   // Fetch product information if productCode is present
   if (productCode) {
