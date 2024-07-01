@@ -31,17 +31,74 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
-  // Function to update the product details section
   function updateProductDetails(productData) {
-    // Example of updating product details, you can customize this
+    // Select the product details container
     const productDetailsDiv = document.querySelector('.product-details');
-    productDetailsDiv.innerHTML = `
-            <h1>${productData.name}</h1>
-            <p>Category: ${productData.category}</p>
-            <p>Description: ${productData.description}</p>
-            <p>Price: $${productData.price}</p>
-            <!-- Add more product information as needed -->
-        `;
+
+    // Clear any existing content
+    productDetailsDiv.innerHTML = '';
+
+    // Create the image div and insert the first product image
+    const productImageDiv = document.createElement('div');
+    productImageDiv.classList.add('product-image');
+    const productImage = document.createElement('img');
+    if (productData.productImages.length > 0) {
+      productImage.src = productData.productImages[0].imageFileName;
+    }
+    productImage.alt = productData.name;
+    productImageDiv.appendChild(productImage);
+
+    // Create the attributes container div
+    const attributesDiv = document.createElement('div');
+    attributesDiv.classList.add('product-attributes');
+
+    // Add the basic product details
+    const nameElement = document.createElement('h1');
+    nameElement.textContent = productData.name;
+    attributesDiv.appendChild(nameElement);
+
+    const modelElement = document.createElement('p');
+    const modelLabel = document.createElement('b');
+    const modelText = document.createTextNode(productData.model);
+    modelLabel.textContent = "Модел: ";
+    modelElement.appendChild(modelLabel);
+    modelElement.appendChild(modelText);
+    attributesDiv.appendChild(modelElement);
+
+    const manufacturerElement = document.createElement('p');
+    const manufacturerLink = document.createElement('a');
+    const manufacturerLabel = document.createElement('b');
+    manufacturerLabel.textContent = "Производител: ";
+    manufacturerElement.appendChild(manufacturerLabel);
+    manufacturerLink.href = `Manufacturers_products.html?manufacturer=${productData.manufacturer}&p=1`; // Add the redirect link here
+    manufacturerLink.textContent = productData.manufacturer;
+    manufacturerElement.appendChild(manufacturerLink);
+    attributesDiv.appendChild(manufacturerElement);
+
+    // Iterate through the attributes list and add each attribute
+    productData.attributes.forEach(attribute => {
+      const attributeElement = document.createElement('p');
+
+      // Create a bold element for the attribute name
+      const boldAttributeName = document.createElement('b');
+      boldAttributeName.textContent = attribute.attributeName.attributeName;
+
+      if (attribute.attributeName.measurementUnit === null) {
+        // Append the bold attribute name and the option to the paragraph element
+        attributeElement.appendChild(boldAttributeName);
+        attributeElement.appendChild(document.createTextNode(`: ${attribute.attributeOption}`));
+      } else {
+        // Append the bold attribute name, option, and measurement unit to the paragraph element
+        attributeElement.appendChild(boldAttributeName);
+        attributeElement.appendChild(document.createTextNode(`: ${attribute.attributeOption} ${attribute.attributeName.measurementUnit}`));
+      }
+
+      attributesDiv.appendChild(attributeElement);
+    });
+
+    // Append both divs to the main container
+    productDetailsDiv.appendChild(productImageDiv);
+    productDetailsDiv.appendChild(attributesDiv);
   }
 
   // Fetch product information if productCode is present
