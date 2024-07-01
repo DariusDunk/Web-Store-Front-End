@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const name = data.name;
 
         // Update the navigation text
-        const updatedCategoryLink = `<a href="Manufacturers_products.html?category=${category}&p=1">${category}</a>`;
+        const updatedCategoryLink = `<a href="Products.html?category=${category}&p=1">${category}</a>`;
         document.getElementById('navigation-text').innerHTML = `${homeLink} / ${updatedCategoryLink} / ${name}`;
         // Update the product details section
         updateProductDetails(data);
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const manufacturerLabel = document.createElement('b');
     manufacturerLabel.textContent = "Производител: ";
     manufacturerElement.appendChild(manufacturerLabel);
-    manufacturerLink.href = `Manufacturers_products.html?manufacturer=${productData.manufacturer}&p=1`; // Add the redirect link here
+    manufacturerLink.href = `Products.html?manufacturer=${productData.manufacturer}&p=1`; // Add the redirect link here
     manufacturerLink.textContent = productData.manufacturer;
     manufacturerElement.appendChild(manufacturerLink);
     attributesDiv.appendChild(manufacturerElement);

@@ -1,5 +1,5 @@
 let Proxy_Url = 'http://localhost:3000';
-const pageName = `Manufacturers_products.html`;
+const pageName = `Products.html`;
 async function getProducts(url) {
   try {
     const response = await fetch(url);
