@@ -162,6 +162,24 @@ app.get('/product/:productCode', async (req, res)=>{
   }
 });
 
+app.post('/customer/addtocart',async  (req, res) =>{
+  try{
+    const response = await fetch(`${Backend_Url}/customer/addtocart`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(req.body)
+    });
+    const responseData = await response.text();
+    res.json(responseData);
+  }
+  catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
