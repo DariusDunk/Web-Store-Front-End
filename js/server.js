@@ -156,35 +156,7 @@ app.post('/customer/addtocart',async  (req, res) =>{
   }
 });
 
-// app.get('/product/suggest/:name', async (req, res)=>{
-//   try {
-//     const {queryParams} = req.params;
-//     console.log(`query params??: ${queryParams}`);
-//     // const searchParams = req.url;
-//     // const paramEntries = searchParams.entries();
-//     // const queryPair = paramEntries.next().value;
-//     // const currText = queryPair[1];
-//
-//     console.log(`proxy url: ${Backend_Url}/product/suggest?name=${queryParams}`);
-//                                               //http://localhost:1620/product/suggest?name=GD-
-//     const response = await fetch(`${Backend_Url}/product/suggest?name=${queryParams}`);
-//     if (response.statusCode===404) {
-//       // If the response status is 404, redirect to the custom 404 page
-//       res.redirect('/404.html');
-//     } else if (!response.ok) {
-//       throw new Error('Network response was not ok ' + response.statusText);
-//     } else {
-//       const data = await response.json();
-//       res.json(data);
-//     }
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//     res.status(500).json({error: 'Failed to fetch data from the real server'});
-//   }
-// });
-
 app.get('/product/suggest/:name', async (req, res)=>{
-  // const { queryParams } = req.params; // Extracting path variable
   try {
     const queryParts = req.url.split("/");
     const text = queryParts[3];

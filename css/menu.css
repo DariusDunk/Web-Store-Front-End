@@ -262,4 +262,35 @@ nav ul li a:hover {
   background-color: var(--color-o);
 }
 
+.search-bar {
+  position: relative;
+  width: 300px;
+  margin: 100px auto;
+}
 
+#search_bar {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.search_dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  background-color: white;
+  display: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.search_dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.search_dropdown-item:hover {
+  background-color: #f0f0f0;
+}

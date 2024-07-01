@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   searchDropdown.addEventListener('click', (event) => {
     event.stopPropagation();
-    searchBar.value = event.target.textContent;
+    searchBar.value = event.target.textContent;//TODO add redirect to product detailed
     searchDropdown.style.display = 'none';
   });
 });
