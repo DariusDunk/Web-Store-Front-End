@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function categoryNames() {
   const categoryMenu = document.getElementById('category-menu');
 
