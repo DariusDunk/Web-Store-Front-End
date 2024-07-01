@@ -260,5 +260,3 @@ document.addEventListener('DOMContentLoaded', function modeHandler() {
   // console.log(`URL: ${fetchUrl.valueOf()}`);
   getProducts(fetchUrl);
 });
-
-//TODO preimenuvai na products.js ili ne6to i smeni izvikvaniqta v drugite fajlove
