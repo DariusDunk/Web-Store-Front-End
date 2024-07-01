@@ -237,11 +237,13 @@ document.addEventListener('DOMContentLoaded', function modeHandler() {
   let fetchUrl = ``;
   switch (mode) {
     case "manufacturer":
-      // sessionStorage.setItem("product_url",`${Proxy_Url}/product/manufacturer/${modeDetails}/p${page}`);
+      document.title = `${modeDetails} продукти`;
+      document.getElementById("product-mode-message").textContent = `Продукти на ${modeDetails}:`;
       fetchUrl = `${Proxy_Url}/product/manufacturer/${modeDetails}/p${page}`;
       break;
     case "category":
-      // sessionStorage.setItem("product_url",);
+      document.title = `${modeDetails}`;
+      document.getElementById("product-mode-message").textContent = `Продукти от категория ${modeDetails}:`;
       fetchUrl = `${Proxy_Url}/product/category/${modeDetails}/p${page}`;
       break;
     case "search":

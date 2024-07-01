@@ -355,3 +355,9 @@ textarea {
   color: #808080; /* Gray color for the text */
   margin-left: 5px; /* Space between stars and review count */
 }
+
+.h1{
+  font-weight: bold;
+  align-self: center;
+  width: 100%;
+}
