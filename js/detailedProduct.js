@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Function to fetch product information from the backend
   function fetchProductInfo(productCode) {
-    const backendUrl = `${Proxy_Url}/product/${productCode}?id=6`; //TODO session storage for id
+    const backendUrl = `${Proxy_Url}/product/detail/${productCode}?id=6`; //TODO session storage for id
     fetch(backendUrl)
       .then(response => response.json())
       .then(data => {

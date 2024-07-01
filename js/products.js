@@ -260,3 +260,6 @@ document.addEventListener('DOMContentLoaded', function modeHandler() {
   // console.log(`URL: ${fetchUrl.valueOf()}`);
   getProducts(fetchUrl);
 });
+
+// script.js
+

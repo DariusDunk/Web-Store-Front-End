@@ -28,3 +28,50 @@ window.onclick = function(event) {
     }
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const searchBar = document.getElementById('search_bar');
+  const searchDropdown = document.getElementById('search_dropdown');
+
+  searchBar.addEventListener('input', async () => {
+    const query = searchBar.value.trim();
+    if (query.length >= 3) {
+      try {
+        const searchBarValue = searchBar.value.valueOf();
+        // const response = await fetch(`${Proxy_Url}/product/suggest?name=${(searchBar.value)}`);
+        console.log(`fetch url: ${Proxy_Url}/product/suggest/${searchBarValue}`);
+        const response = await fetch(`${Proxy_Url}/product/suggest/${searchBarValue}`);
+        const result = await response.json();
+
+        if (result.length > 0) {
+          searchDropdown.innerHTML = '';
+          result.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'search_dropdown-item';
+            div.textContent = item;
+            searchDropdown.appendChild(div);
+          });
+          searchDropdown.style.display = 'block';
+        } else {
+          searchDropdown.style.display = 'none';
+        }
+      } catch (error) {
+        console.error('Error fetching search results:', error);
+        searchDropdown.style.display = 'none';
+      }
+    } else {
+      searchDropdown.style.display = 'none';
+    }
+  });
+  document.addEventListener('click', (event) => {
+    if (!searchBar.contains(event.target)) {
+      searchBar.blur();
+      searchDropdown.style.display = 'none';
+    }
+  });
+  searchDropdown.addEventListener('click', (event) => {
+    event.stopPropagation();
+    searchBar.value = event.target.textContent;
+    searchDropdown.style.display = 'none';
+  });
+});
