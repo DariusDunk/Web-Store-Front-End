@@ -12,13 +12,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Function to fetch product information from the backend
   function fetchProductInfo(productCode) {
-    const backendUrl = `${Proxy_Url}/product/${productCode}?id=6`; // Replace '12345' with the appropriate ID if needed
+    const backendUrl = `${Proxy_Url}/product/${productCode}?id=6`; //TODO session storage for id
     fetch(backendUrl)
       .then(response => response.json())
       .then(data => {
         // Assuming the response data has a structure like { category: 'Category Name', name: 'Product Name', ... }
         const category = data.categoryName;
         const name = data.name;
+
         // Update the navigation text
         const updatedCategoryLink = `<a href="Manufacturers_products.html?category=${category}&p=1">${category}</a>`;
         document.getElementById('navigation-text').innerHTML = `${homeLink} / ${updatedCategoryLink} / ${name}`;
@@ -34,10 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateProductDetails(productData) {
     // Select the product details container
     const productDetailsDiv = document.querySelector('.product-details');
-
     // Clear any existing content
     productDetailsDiv.innerHTML = '';
-
+    document.title = productData.name;
     // Create the image div and insert the first product image
     const productImageDiv = document.createElement('div');
     productImageDiv.classList.add('product-image');
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     });
 
-    cartButton.addEventListener('click', async () => {//TODO do
+    cartButton.addEventListener('click', async () => {
       let productQuantity;
       if (cartButton.classList.contains('active'))
       {

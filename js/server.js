@@ -8,20 +8,20 @@ const http = require('http');
 const url = require('url');
 const {response, request} = require("express");
 
-//TODO delete below?
-const server = http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url, true);
-  const pathname = parsedUrl.pathname;
-  const query = parsedUrl.query;
-
-  console.log('Path:', pathname);
-  console.log('Query Parameters:', query);
-
-  // Handle your logic here, e.g., ignoring _ijt and _ij_reload
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello, world!\n');
-});
+// //TODO delete below?
+// const server = http.createServer((req, res) => {
+//   const parsedUrl = url.parse(req.url, true);
+//   const pathname = parsedUrl.pathname;
+//   const query = parsedUrl.query;
+//
+//   console.log('Path:', pathname);
+//   console.log('Query Parameters:', query);
+//
+//   // Handle your logic here, e.g., ignoring _ijt and _ij_reload
+//   res.statusCode = 200;
+//   res.setHeader('Content-Type', 'text/plain');
+//   res.end('Hello, world!\n');
+// });
 
 
 
