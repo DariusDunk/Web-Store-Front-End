@@ -3,14 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Влизане</title>
+  <link rel="stylesheet" href="css/RegLogin.css">
 </head>
 <body>
-<h1>Влизане</h1>
-<br>
-<label for="Email_input">Имейл</label><input type="text" id="Email_input">
-<br>
-<label for="password_input">Парола</label><input type="password" id="password_input">
-<br>
-<button id="login_button">Вход</button>
+
+<div class="container">
+  <h1>Влизане</h1>
+  <form id="loginForm">
+    <label for="email">Имейл: </label>
+    <input type="text" id="email" name="email" required>
+    <div id="emailError" class="error"></div>
+
+    <label for="password">Парола: </label>
+    <input type="password" id="password" name="password" required>
+    <div id="passwordError" class="error"></div>
+
+    <button type="submit">Влизане</button>
+  </form>
+  <p>Нямаш акаунт? <a href="register.html">Регистрирай се</a></p>
+</div>
+
 </body>
 </html>

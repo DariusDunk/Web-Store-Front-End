@@ -3,13 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>Регистрация</title>
+  <link rel="stylesheet" href="css/RegLogin.css">
 </head>
 <body>
-<h1>Регистрация</h1>
-<br>
-<label for="Email_input">Имейл</label><input type="text" id="Email_input">
-<br>
-<label for="password_input">Парола</label><input type="password" id="password_input">
-<button id="login_button">Регистриране</button>
+<div class="container">
+  <h1>Регистрация</h1>
+  <form id="registrationForm">
+  <label for="email">Имейл: </label>
+  <input type="text" id="email" name="email" required>
+  <div id="emailError" class="error"></div>
+
+  <label for="username">Име: </label>
+  <input type="text" id="username" name="username" required>
+  <div id="usernameError" class="error"></div>
+
+  <label for="password">Парола: </label>
+  <input type="password" id="password" name="password" required>
+  <div id="passwordError" class="error"></div>
+
+  <button type="submit">Регистриране</button>
+  </form>
+  <p>Имаш акаунт? <a href="Login.html">Влез</a></p>
+</div>
+<script src="js/Registration.js"></script>
 </body>
 </html>

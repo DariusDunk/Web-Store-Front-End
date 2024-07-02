@@ -231,6 +231,25 @@ app.get('/featured/:page', async (req, res)=>{
   }
 });
 
+app.post('/customer/registration', async (req, res)=>{
+  try{
+    const response = await fetch(`${Backend_Url}/customer/registration`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(req.body)
+    });
+    const responseData = await response.text();
+    console.log(`response: status: ${response.status} data: ${responseData}`);
+    res.status(response.status).send(responseData);
+  }
+  catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
