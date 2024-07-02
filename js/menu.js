@@ -85,5 +85,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function searchStart(searchBar) {
   const searchBarText = searchBar.value.valueOf();
-  window.location.href = `Products.html?search=${encodeURIComponent(searchBarText)}&page=0`;
+  window.location.href = `Products.html?search=${encodeURIComponent(searchBarText)}&page=1`;
 }

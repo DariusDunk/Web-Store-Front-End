@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function modeHandler() {
       break;
     case "search":
       // console.log("search");
-      fetchUrl = `${Proxy_Url}/search/${encodeURIComponent(modeDetails)}/0`;
+      fetchUrl = `${Proxy_Url}/search/${encodeURIComponent(modeDetails)}/${page}`;
       break;
     case "filter":
       fetchUrl = [urlParams.get('filterQuery')];

@@ -184,8 +184,8 @@ app.get(`/search/:text/:page`, async (req, res)=>{
   console.log("search");
   try {
     console.log(`front end url: ${req.url}`);
-    console.log(`fetch url: ${Backend_Url}/product/search?name=${encodeURIComponent(searchText)}&page=${page}`);
-    const response = await fetch(`${Backend_Url}/product/search?name=${encodeURIComponent(searchText)}&page=${page}`);
+    console.log(`fetch url: ${Backend_Url}/product/search?name=${searchText}&page=${page}`);
+    const response = await fetch(`${Backend_Url}/product/search?name=${searchText}&page=${page}`);
     if (response.status === 404) {
       // If the response status is 404, redirect to the custom 404 page
       res.redirect('/404.html');
