@@ -46,7 +46,7 @@ async function getProducts(url) {
         // Half star if needed
         if (rating % 1 !== 0) {
           const starIcon = document.createElement('span');
-          starIcon.classList.add('star', 'half');
+          starIcon.classList.add('star', 'empty');
           ratingContainer.appendChild(starIcon);
         }
       }
@@ -151,7 +151,7 @@ function updatePagination(lastPage) {
 
     //prev 2 pages
     if (maxPrevPages) {
-      for (let i = 1; i <= maxPrevPages; i++) {
+      for (let i = maxPrevPages; i >=1 ; i--) {
         const pageButton = document.createElement('span');
         let prevPageInteger = parseInt(currentPage) + 1 - i;
         pageButton.textContent = prevPageInteger;
@@ -225,13 +225,14 @@ function updatePagination(lastPage) {
 }
 
 document.addEventListener('DOMContentLoaded', function modeHandler() {
+
   let searchParams = new URLSearchParams(window.location.search);
-  const paramEntries = searchParams.entries();
+  let paramEntries = searchParams.entries();
   let modeQueryPair = paramEntries.next().value;
-  const mode = modeQueryPair[0];
-  const modeDetails = modeQueryPair[1];
+  let mode = modeQueryPair[0];
+  let modeDetails = modeQueryPair[1];
   let pageQueryPair = paramEntries.next().value;
-  const page = pageQueryPair[1]-1;
+  let page = pageQueryPair[1]-1;
 
   // console.log('search params:');
   //
@@ -256,12 +257,16 @@ document.addEventListener('DOMContentLoaded', function modeHandler() {
       // console.log("search");
       fetchUrl = `${Proxy_Url}/search/${encodeURIComponent(modeDetails)}/${page}`;
       break;
-    case "filter":
-      fetchUrl = [urlParams.get('filterQuery')];
-      break;
+    // case "filter":
+    //   // fetchUrl = [urlParams.get('filterQuery')];
+    //   //Not implemented
+    //   break;
+    case "featured":
+      fetchUrl = `${Proxy_Url}/featured/${page}`;
+    break;
     default:
       // sessionStorage.setItem("product_url",);
-      fetchUrl = `${Proxy_Url}/product/manufacturer/Gardenia/p1`;
+      fetchUrl = `${Proxy_Url}/featured/0`;
       break;
   }
   // console.log(`URL: ${fetchUrl.valueOf()}`);
