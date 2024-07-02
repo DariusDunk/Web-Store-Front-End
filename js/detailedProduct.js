@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // Define the properties for the navigation panel
   const homeLink = '<a href="MainPage.html">Начало</a>';
   // Function to get query parameters
+
+  if (!sessionStorage.getItem('customerId') || !sessionStorage.getItem('customerName')) {
+    window.location.href = 'Login.html';
+  }
+
   function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);

@@ -345,7 +345,6 @@ textarea {
 .half::before {
   content: '☆'; /* Half-filled star */
 }
-/*TODO*/
 
 .empty::before {
   content: '☆'; /* Empty star */

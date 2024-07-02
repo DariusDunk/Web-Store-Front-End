@@ -225,52 +225,59 @@ function updatePagination(lastPage) {
 }
 
 document.addEventListener('DOMContentLoaded', function modeHandler() {
+  if (sessionStorage.getItem('customerId') && sessionStorage.getItem('customerName'))
+  {
+    let searchParams = new URLSearchParams(window.location.search);
+    let paramEntries = searchParams.entries();
+    let modeQueryPair = paramEntries.next().value;
+    let mode = modeQueryPair[0];
+    let modeDetails = modeQueryPair[1];
+    let pageQueryPair = paramEntries.next().value;
+    let page = pageQueryPair[1] - 1;
 
-  let searchParams = new URLSearchParams(window.location.search);
-  let paramEntries = searchParams.entries();
-  let modeQueryPair = paramEntries.next().value;
-  let mode = modeQueryPair[0];
-  let modeDetails = modeQueryPair[1];
-  let pageQueryPair = paramEntries.next().value;
-  let page = pageQueryPair[1]-1;
+    // console.log('search params:');
+    //
+    // for (let paramEntry of paramEntries) {
+    //   console.log(paramEntry);
+    // }
 
-  // console.log('search params:');
-  //
-  // for (let paramEntry of paramEntries) {
-  //   console.log(paramEntry);
-  // }
-
-  // console.log(`url page -1 = ${page}`);
-  let fetchUrl = ``;
-  switch (mode) {
-    case "manufacturer":
-      document.title = `${modeDetails} продукти`;
-      document.getElementById("product-mode-message").textContent = `Продукти на ${modeDetails}:`;
-      fetchUrl = `${Proxy_Url}/product/manufacturer/${modeDetails}/p${page}`;
-      break;
-    case "category":
-      document.title = `${modeDetails}`;
-      document.getElementById("product-mode-message").textContent = `Продукти от категория ${modeDetails}:`;
-      fetchUrl = `${Proxy_Url}/product/category/${modeDetails}/p${page}`;
-      break;
-    case "search":
-      // console.log("search");
-      fetchUrl = `${Proxy_Url}/search/${encodeURIComponent(modeDetails)}/${page}`;
-      break;
-    // case "filter":
-    //   // fetchUrl = [urlParams.get('filterQuery')];
-    //   //Not implemented
-    //   break;
-    case "featured":
-      fetchUrl = `${Proxy_Url}/featured/${page}`;
-    break;
-    default:
-      // sessionStorage.setItem("product_url",);
-      fetchUrl = `${Proxy_Url}/featured/0`;
-      break;
+    // console.log(`url page -1 = ${page}`);
+    let fetchUrl = ``;
+    switch (mode) {
+      case "manufacturer":
+        document.title = `${modeDetails} продукти`;
+        document.getElementById("product-mode-message").textContent = `Продукти на ${modeDetails}:`;
+        fetchUrl = `${Proxy_Url}/product/manufacturer/${modeDetails}/p${page}`;
+        break;
+      case "category":
+        document.title = `${modeDetails}`;
+        document.getElementById("product-mode-message").textContent = `Продукти от категория ${modeDetails}:`;
+        fetchUrl = `${Proxy_Url}/product/category/${modeDetails}/p${page}`;
+        break;
+      case "search":
+        // console.log("search");
+        fetchUrl = `${Proxy_Url}/search/${encodeURIComponent(modeDetails)}/${page}`;
+        break;
+      // case "filter":
+      //   // fetchUrl = [urlParams.get('filterQuery')];
+      //   //Not implemented
+      //   break;
+      case "featured":
+        fetchUrl = `${Proxy_Url}/featured/${page}`;
+        break;
+      default:
+        // sessionStorage.setItem("product_url",);
+        fetchUrl = `${Proxy_Url}/featured/0`;
+        break;
+    }
+    // console.log(`URL: ${fetchUrl.valueOf()}`);
+    getProducts(fetchUrl);
   }
-  // console.log(`URL: ${fetchUrl.valueOf()}`);
-  getProducts(fetchUrl);
+  else
+  {
+    window.location.href = "Login.html";
+  }
+
 });
 
 // script.js

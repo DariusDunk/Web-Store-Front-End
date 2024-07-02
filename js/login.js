@@ -1,7 +1,7 @@
 let Proxy_Url = 'http://localhost:3000';
 document.addEventListener('DOMContentLoaded', function() {
   // Check if user is already logged in
-  if (sessionStorage.getItem('userId') && sessionStorage.getItem('authToken')) {
+  if (sessionStorage.getItem('customerId') && sessionStorage.getItem('customerName')) {
     window.location.href = 'MainPage.html';
   }
 
