@@ -32,6 +32,7 @@ window.onclick = function(event) {
 document.addEventListener('DOMContentLoaded', () => {
   const searchBar = document.getElementById('search_bar');
   const searchDropdown = document.getElementById('search_dropdown');
+  const searchButton = document.getElementById('search_button');
 
   searchBar.addEventListener('input', async () => {
     const query = searchBar.value.trim();
@@ -72,6 +73,17 @@ document.addEventListener('DOMContentLoaded', () => {
   searchDropdown.addEventListener('click', (event) => {
     event.stopPropagation();
     searchBar.value = event.target.textContent;//TODO add redirect to product detailed
+    searchStart(searchBar);
     searchDropdown.style.display = 'none';
   });
+
+  searchButton.addEventListener('click', async()  => {
+    searchStart(searchBar);
+  });
+
 });
+
+function searchStart(searchBar) {
+  const searchBarText = searchBar.value.valueOf();
+  window.location.href = `Products.html?search=${encodeURIComponent(searchBarText)}&page=0`;
+}

@@ -233,6 +233,12 @@ document.addEventListener('DOMContentLoaded', function modeHandler() {
   let pageQueryPair = paramEntries.next().value;
   const page = pageQueryPair[1]-1;
 
+  // console.log('search params:');
+  //
+  // for (let paramEntry of paramEntries) {
+  //   console.log(paramEntry);
+  // }
+
   // console.log(`url page -1 = ${page}`);
   let fetchUrl = ``;
   switch (mode) {
@@ -247,7 +253,8 @@ document.addEventListener('DOMContentLoaded', function modeHandler() {
       fetchUrl = `${Proxy_Url}/product/category/${modeDetails}/p${page}`;
       break;
     case "search":
-      fetchUrl = [urlParams.get('searchTerm')];
+      // console.log("search");
+      fetchUrl = `${Proxy_Url}/search/${encodeURIComponent(modeDetails)}/0`;
       break;
     case "filter":
       fetchUrl = [urlParams.get('filterQuery')];

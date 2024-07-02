@@ -12,7 +12,7 @@ app.use(cors());
 
 app.get('/product/manufacturer/:manufacturerName/p:page', async (req, res) => {
   const { manufacturerName, page} = req.params;
-
+  console.log("Manufacturer");
   try {
     const response = await fetch(`${Backend_Url}/product/manufacturer/${manufacturerName}/p${page}`);
     if (response.status === 404) {
@@ -29,13 +29,13 @@ app.get('/product/manufacturer/:manufacturerName/p:page', async (req, res) => {
       res.json(data);
     }
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Manufacturer: Error fetching data:', error);
     res.status(500).json({ error: 'Failed to fetch data from the real server' });
   }
 });
 
 app.get('/category/names', async (req, res)=> {
-
+  console.log("category names");
   try {
     const response = await fetch(`${Backend_Url}/category/names`);
     if (response.status === 404) {
@@ -48,7 +48,7 @@ app.get('/category/names', async (req, res)=> {
       res.json(data);
     }
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Names: Error fetching data:', error);
     res.status(500).json({error: 'Failed to fetch data from the real server'});
   }
 
@@ -56,7 +56,7 @@ app.get('/category/names', async (req, res)=> {
 
 app.get('/product/category/:categoryName/p:page', async (req, res) => {
   const {categoryName, page} = req.params;
-
+  console.log("category");
   try {
     const response = await fetch(`${Backend_Url}/product/category/${categoryName}/p${page}`);
     if (response.status === 404) {
@@ -73,7 +73,7 @@ app.get('/product/category/:categoryName/p:page', async (req, res) => {
       res.json(data);
     }
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Category: Error fetching data:', error);
     res.status(500).json({ error: 'Failed to fetch data from the real server' });
   }
 });
@@ -116,7 +116,7 @@ app.delete(`/customer/removefav`, async (req, res)=>{
 app.get('/product/detail/:productCode', async (req, res)=>{
   const { productCode } = req.params; // Extracting path variable
   const { id } = req.query; // Extracting query parameter
-
+  console.log("detail");
   if (!productCode || !id) {
     return res.status(400).json({ error: 'Missing required parameters' });
   }
@@ -158,6 +158,7 @@ app.post('/customer/addtocart',async  (req, res) =>{
 
 app.get('/product/suggest/:name', async (req, res)=>{
   try {
+    console.log("suggest");
     const queryParts = req.url.split("/");
     const text = queryParts[3];
 
@@ -171,11 +172,38 @@ app.get('/product/suggest/:name', async (req, res)=>{
 
     res.json(data);
   } catch (error) {
-    console.error('Error fetching data from backend:', error);
+    console.error('Suggest: Error fetching data from backend:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
+app.get(`/search/:text/:page`, async (req, res)=>{
+  const queryParts = req.url.split("/");
+  const searchText = queryParts[2];
+  const page = queryParts[3];
+  console.log("search");
+  try {
+    console.log(`front end url: ${req.url}`);
+    console.log(`fetch url: ${Backend_Url}/product/search?name=${encodeURIComponent(searchText)}&page=${page}`);
+    const response = await fetch(`${Backend_Url}/product/search?name=${encodeURIComponent(searchText)}&page=${page}`);
+    if (response.status === 404) {
+      // If the response status is 404, redirect to the custom 404 page
+      res.redirect('/404.html');
+    }
+    else
+    if (!response.ok) {
+      throw new Error('Network response was not ok ' + response.statusText);
+    }
+    else
+    {
+      const data = await response.json();
+      res.json(data);
+    }
+  } catch (error) {
+    console.error('Search: Error fetching data:', error);
+    res.status(500).json({ error: 'Failed to fetch data from the real server' });
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
