@@ -50,13 +50,13 @@
       </button>
       <div class="profile-container" onclick="toggleDropdown()">
         <img src="img/user-profile-image.png" alt="User Profile" class="profile-image">
-        <span class="username">Username</span>
+        <span id="userName" class="username">Username</span>
       </div>
       <div class="dropdown-menu" id="userDropdown">
         <a href="#">Количка</a>
         <a href="#">История на покупките</a>
         <a href="#">Смяна на снимката</a>
-        <a href="#">Изход</a>
+        <a id="logout" href="#">Изход</a>
       </div>
     </div>
   </div>
@@ -67,8 +67,8 @@
   <br>
   <div class="pagination-container" id="paginationContainer"></div>
 </main>
-<script src="js/products.js"></script>
 <script src="js/menu.js"></script>
+<script src="js/products.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', getProducts);
 </script>

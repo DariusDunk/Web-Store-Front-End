@@ -20,6 +20,8 @@ function toggleDropdown() {
   const dropdown = document.getElementById('userDropdown');
   dropdown.classList.toggle('show');
 }
+
+document.getElementById("userName").textContent = sessionStorage.getItem('customerName');
 window.onclick = function(event) {
   if (!event.target.matches('.profile-container') && !event.target.matches('.username') && !event.target.matches('.profile-image')) {
     const dropdown = document.getElementById('userDropdown');
@@ -80,7 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
   searchButton.addEventListener('click', async()  => {
     searchStart(searchBar);
   });
+  const logoutButton = document.getElementById("logout");
 
+  logoutButton.addEventListener("click", async ()=>{
+    sessionStorage.clear();
+    window.location.href = "Login.html";
+  })
 });
 
 function searchStart(searchBar) {
