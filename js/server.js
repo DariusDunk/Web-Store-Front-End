@@ -285,6 +285,27 @@ app.get('/customer/cart/:id',async (req,res)=>
   }
 });
 
+app.post('/purchase/complete', async (req, res)=>{
+  try{
+
+    console.log("inside purchase complete");
+    const response = await fetch(`${Backend_Url}/purchase/complete`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(req.body)
+    });
+    const responseData = await response.json();
+    // console.log(`response: status: ${response.status}`);
+    res.json(responseData);
+  }
+  catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

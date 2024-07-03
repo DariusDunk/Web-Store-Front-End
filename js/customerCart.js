@@ -3,7 +3,11 @@ const Proxy_Url = 'http://localhost:3000';
 document.addEventListener('DOMContentLoaded', function ()
 {
 
-  fetch(`${Proxy_Url}/customer/cart/${6}`)//TODO replace with sessionStorage and check for login
+  if (!sessionStorage.getItem('customerId') || !sessionStorage.getItem('customerName')) {
+    window.location.href = 'Login.html';
+  }
+
+  fetch(`${Proxy_Url}/customer/cart/${sessionStorage.getItem('customerId')}`)//TODO replace with sessionStorage and check for login
     .then(response => response.json())
     .then(data => {
       const productsDiv = document.getElementById('products');
@@ -48,6 +52,6 @@ document.addEventListener('DOMContentLoaded', function ()
 
   continueButton.addEventListener("click", async ()=>{
 
-    window.location.href = "Login.html";
+    window.location.href = "OrderDetails.html";
   })
 });

@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
     favoritesButton.addEventListener('click', async () => {
       let response;
       let requestBody = JSON.stringify({
-        customerId: 6,
+        customerId: sessionStorage.getItem('customerId'),
         productCode: productData.productCode
       });
       if (favoritesButton.classList.contains('active')) {
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
         method: 'POST',
         body: JSON.stringify({
           customerProductPairRequest: {
-            customerId: 6,
+            customerId: sessionStorage.getItem('customerId'),
             productCode: productData.productCode,
           },
           quantity: productQuantity
