@@ -269,6 +269,21 @@ app.post('/customer/login', async (req, res)=>{
   }
 });
 
+app.get('/customer/cart/:id',async (req,res)=>
+{
+  const queryParts = req.url.split("/");
+  const id = queryParts[3];
+
+  try{
+    const response = await fetch(`${Backend_Url}/customer/cart?id=${id}`);
+    const responseData = await response.json();
+    res.json(responseData);
+  }
+  catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

@@ -88,6 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
     sessionStorage.clear();
     window.location.href = "Login.html";
   })
+
+  const cartButton = document.getElementById("logout");
+
+  logoutButton.addEventListener("click", async ()=>{
+    window.location.href = "customerCart.html";
+  })
 });
 
 function searchStart(searchBar) {
