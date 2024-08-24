@@ -7,7 +7,6 @@ const Backend_Url = 'http://localhost:1620';
 const http = require('http');
 const url = require('url');
 const {response, request} = require("express");
-// Use the CORS middleware to allow cross-origin requests
 app.use(cors());
 
 app.get('/product/manufacturer/:manufacturerName/p:page', async (req, res) => {
@@ -16,7 +15,6 @@ app.get('/product/manufacturer/:manufacturerName/p:page', async (req, res) => {
   try {
     const response = await fetch(`${Backend_Url}/product/manufacturer/${manufacturerName}/p${page}`);
     if (response.status === 404) {
-      // If the response status is 404, redirect to the custom 404 page
       res.redirect('/404.html');
     }
     else
@@ -39,7 +37,6 @@ app.get('/category/names', async (req, res)=> {
   try {
     const response = await fetch(`${Backend_Url}/category/names`);
     if (response.status === 404) {
-      // If the response status is 404, redirect to the custom 404 page
       res.redirect('/404.html');
     } else if (!response.ok) {
       throw new Error('Network response was not ok ' + response.statusText);
@@ -60,7 +57,6 @@ app.get('/product/category/:categoryName/p:page', async (req, res) => {
   try {
     const response = await fetch(`${Backend_Url}/product/category/${categoryName}/p${page}`);
     if (response.status === 404) {
-      // If the response status is 404, redirect to the custom 404 page
       res.redirect('/404.html');
     }
     else
@@ -114,14 +110,13 @@ app.delete(`/customer/removefav`, async (req, res)=>{
 })
 
 app.get('/product/detail/:productCode', async (req, res)=>{
-  const { productCode } = req.params; // Extracting path variable
-  const { id } = req.query; // Extracting query parameter
+  const { productCode } = req.params;
+  const { id } = req.query;
   console.log("detail");
   if (!productCode || !id) {
     return res.status(400).json({ error: 'Missing required parameters' });
   }
   try {
-    // Construct the backend URL with the received path variable and query parameters
     const backendUrl = `${Backend_Url}/product/${productCode}?id=${id}`;
     const response = await fetch(backendUrl);
 
@@ -129,8 +124,6 @@ app.get('/product/detail/:productCode', async (req, res)=>{
       throw new Error('Network response was not ok ' + response.statusText);
     }
     const data = await response.json();
-    // Send the data received from the backend to the client
-
     res.json(data);
   } catch (error) {
     console.error('Error fetching data from backend:', error);
@@ -168,7 +161,6 @@ app.get('/product/suggest/:name', async (req, res)=>{
       throw new Error('Network response was not ok ' + response.statusText);
     }
     const data = await response.json();
-    // Send the data received from the backend to the client
 
     res.json(data);
   } catch (error) {
@@ -187,7 +179,6 @@ app.get(`/search/:text/:page`, async (req, res)=>{
     console.log(`fetch url: ${Backend_Url}/product/search?name=${searchText}&page=${page}`);
     const response = await fetch(`${Backend_Url}/product/search?name=${searchText}&page=${page}`);
     if (response.status === 404) {
-      // If the response status is 404, redirect to the custom 404 page
       res.redirect('/404.html');
     }
     else
@@ -212,7 +203,6 @@ app.get('/featured/:page', async (req, res)=>{
   try {
     const response = await fetch(`${Backend_Url}/product/findall?page=${page}`);
     if (response.status === 404) {
-      // If the response status is 404, redirect to the custom 404 page
       res.redirect('/404.html');
     }
     else
@@ -260,7 +250,6 @@ app.post('/customer/login', async (req, res)=>{
       body: JSON.stringify(req.body)
     });
     const responseData = await response.text();
-    // console.log(`response: status: ${response.status} data: ${responseData}`);
     res.status(response.status).send(responseData);
   }
   catch (error) {
@@ -297,7 +286,6 @@ app.post('/purchase/complete', async (req, res)=>{
       body: JSON.stringify(req.body)
     });
     const responseData = await response.json();
-    // console.log(`response: status: ${response.status}`);
     res.json(responseData);
   }
   catch (error) {

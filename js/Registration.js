@@ -2,18 +2,15 @@ const Proxy_Url = 'http://localhost:3000';
 document.getElementById('registrationForm').addEventListener('submit', async function(event) {
   event.preventDefault();
 
-  // Hide any previous error messages
   document.getElementById('emailError').style.display = 'none';
   document.getElementById('usernameError').style.display = 'none';
   document.getElementById('passwordError').style.display = 'none';
 
-  // Get form values
   const email = document.getElementById('email').value;
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
   try {
-    // Send POST request to the Node.js proxy server
     const response = await fetch(`${Proxy_Url}/customer/registration`, {
       method: 'POST',
       headers: {

@@ -8,7 +8,7 @@ function submitForm() {
   const contactName = document.getElementById('contact-name').value;
   const contactNumber = document.getElementById('contact-number').value;
   const address = document.getElementById('address').value;
-  const customerId = sessionStorage.getItem('customerId'); // Replace with the actual customer TODO session
+  const customerId = sessionStorage.getItem('customerId');
 
   const purchaseDto = {
     contactName: contactName,

@@ -1,6 +1,6 @@
 root {
-  --color-g: #90ee90; /* Brighter light green */
-  --color-o: #FF6347; /* Darker dark orange */
+  --color-g: #90ee90;
+  --color-o: #FF6347;
   --color-white: #FFFFFF;
   --color-grey: #808080;
 }

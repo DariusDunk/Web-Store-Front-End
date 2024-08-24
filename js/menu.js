@@ -1,14 +1,13 @@
 document.addEventListener('DOMContentLoaded', function categoryNames() {
   const categoryMenu = document.getElementById('category-menu');
 
-  fetch(`${Proxy_Url}/category/names`) // Replace with your API endpoint
+  fetch(`${Proxy_Url}/category/names`)
     .then(response => response.json())
     .then(data => {
       data.forEach(item => {
         const a = document.createElement('a');
-        // a.href = item; // Adjust based on your API response
-        a.href = `Products.html?category=${item}&p=1`; // Adjust based on your API response
-        a.textContent = item; // Adjust based on your API response
+        a.href = `Products.html?category=${item}&p=1`;
+        a.textContent = item;
         categoryMenu.appendChild(a);
       });
     })
@@ -41,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (query.length >= 3) {
       try {
         const searchBarValue = searchBar.value.valueOf();
-        // const response = await fetch(`${Proxy_Url}/product/suggest?name=${(searchBar.value)}`);
         console.log(`fetch url: ${Proxy_Url}/product/suggest/${searchBarValue}`);
         const response = await fetch(`${Proxy_Url}/product/suggest/${searchBarValue}`);
         const result = await response.json();

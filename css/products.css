@@ -190,7 +190,7 @@ textarea {
   *::after {
     background: #fff !important;
     color: #000 !important;
-    /* Black prints faster */
+
     box-shadow: none !important;
     text-shadow: none !important;
   }
@@ -245,17 +245,10 @@ textarea {
   }
 }
 
-/*
-:root {
-  --color-g: #90EE90; Brighter light green
---color-o: #FF6347; Darker dark orange
-
- */
-
 .product-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start; /* Align items from the start */
+  justify-content: flex-start;
   gap: 10px;
   padding: 20px;
 }
@@ -321,7 +314,7 @@ textarea {
     width: calc(100% - 10px);
   }
 }
-/* Star Rating Styles */
+
 .rating-container {
   display: flex;
   align-items: center;
@@ -329,31 +322,31 @@ textarea {
 }
 
 .star {
-  font-size: 18px; /* Adjust size of stars as needed */
-  color: var(--color-o); /* Color of stars */
+  font-size: 18px;
+  color: var(--color-o);
 }
 
 .star::before {
-  content: '★'; /* Unicode star symbol */
+  content: '★';
   margin-right: 2px;
 }
 
 .full::before {
-  content: '★'; /* Filled star */
+  content: '★';
 }
 
 .half::before {
-  content: '☆'; /* Half-filled star */
+  content: '☆';
 }
 
 .empty::before {
-  content: '☆'; /* Empty star */
-  color: #ccc; /* Light gray color for empty stars */
+  content: '☆';
+  color: #ccc;
 }
 .review-count {
-  font-size: 14px; /* Adjust size of the text */
-  color: #808080; /* Gray color for the text */
-  margin-left: 5px; /* Space between stars and review count */
+  font-size: 14px;
+  color: #808080;
+  margin-left: 5px;
 }
 
 .h1{
@@ -361,7 +354,7 @@ textarea {
   align-self: center;
   width: 100%;
 }
-/* styles.css */
+
 body {
   font-family: Arial, sans-serif;
 }
