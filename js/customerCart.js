@@ -7,48 +7,60 @@ document.addEventListener('DOMContentLoaded', function ()
     window.location.href = 'Login.html';
   }
 
+  let emptyCart = true;
+
   fetch(`${Proxy_Url}/customer/cart/${sessionStorage.getItem('customerId')}`)//TODO replace with sessionStorage and check for login
     .then(response => response.json())
     .then(data => {
       const productsDiv = document.getElementById('products');
       const totalCostDiv = document.getElementById('total-cost');
 
-      data.productQuantityPair.forEach(pair => {
-        const productContainer = document.createElement('div');
-        productContainer.classList.add('product-container');
+      if (!data.productQuantityPair.isEmpty()) {
+        data.productQuantityPair.forEach(pair => {
+          const productContainer = document.createElement('div');
+          productContainer.classList.add('product-container');
 
-        const img = document.createElement('img');
-        img.src = pair.compactProductResponse.imageUrl;
-        img.alt = pair.compactProductResponse.name;
-        img.classList.add('product-image');
+          const img = document.createElement('img');
+          img.src = pair.compactProductResponse.imageUrl;
+          img.alt = pair.compactProductResponse.name;
+          img.classList.add('product-image');
 
-        const productDetails = document.createElement('div');
-        productDetails.classList.add('product-details');
+          const productDetails = document.createElement('div');
+          productDetails.classList.add('product-details');
 
-        const productName = document.createElement('div');
-        productName.classList.add('product-name');
-        productName.textContent = pair.compactProductResponse.name;
+          const productName = document.createElement('div');
+          productName.classList.add('product-name');
+          productName.textContent = pair.compactProductResponse.name;
 
-        const productPrice = document.createElement('div');
-        productPrice.classList.add('product-price');
-        const adjustedPrice = pair.compactProductResponse.salePriceStotinki/100;
-        productPrice.textContent = `${pair.quantity} x ${adjustedPrice} =
-        ${adjustedPrice * pair.quantity} лв.`;
+          const productPrice = document.createElement('div');
+          productPrice.classList.add('product-price');
+          const adjustedPrice = pair.compactProductResponse.salePriceStotinki / 100;
+          productPrice.textContent = `${pair.quantity} x ${adjustedPrice} =
+          ${adjustedPrice * pair.quantity} лв.`;
 
-        productDetails.appendChild(productName);
-        productDetails.appendChild(productPrice);
+          productDetails.appendChild(productName);
+          productDetails.appendChild(productPrice);
 
-        productContainer.appendChild(img);
-        productContainer.appendChild(productDetails);
+          productContainer.appendChild(img);
+          productContainer.appendChild(productDetails);
 
-        productsDiv.appendChild(productContainer);
-      });
+          productsDiv.appendChild(productContainer);
+        });
+
+        emptyCart = false;
+      }
       totalCostDiv.textContent = `Общо ${data.totalCost/100} лв.`
 
     })
     .catch(error => console.error('Error fetching data:', error));
 
   const continueButton = document.getElementById("continueButton");
+
+  if (emptyCart)
+  {
+    document.getElementById(continueButton).disable();
+    // continueButton.classList.add('disabled');
+  }
 
   continueButton.addEventListener("click", async ()=>{
 
