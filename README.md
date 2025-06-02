@@ -64,8 +64,4 @@ git clone https://github.com/DariusDunk/Web-Store-Front-End.git
 
 ```
 npm instal
-
-
-
-
-
+```
