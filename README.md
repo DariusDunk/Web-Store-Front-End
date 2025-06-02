@@ -52,7 +52,7 @@ shop from the comfort of their homes, enhancing accessibility.
 ## Setup and instalation
 
 ```
-git clone
+git clone https://github.com/DariusDunk/Web-Store-Front-End.git
 
 ```
 
