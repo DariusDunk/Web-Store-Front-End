@@ -19,10 +19,13 @@ shop from the comfort of their homes, enhancing accessibility.
 
 1. [Features][features]
 2. [Technologies used][TechStacks]
-3. [Tests][Test]
-4. [Requirements][Requirement]
-5. [API overview][endpoints]
-6. [Contributors][contributors]
+3. [Requirements][Requirement]
+4. [Contributors][contributors]
+
+[features]: https://github.com/DariusDunk/Web-Store-Front-End/blob/master/README.md#features
+[TechStacks]: https://github.com/DariusDunk/Web-Store-Front-End/blob/master/README.md#technologies-used
+[Requirement]: https://github.com/DariusDunk/Web-Store-Front-End/blob/master/README.md#requirements
+[contributors]: https://github.com/DariusDunk/Web-Store-Front-End/blob/master/README.md#contributors
 
 ---
 
