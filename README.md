@@ -1,4 +1,4 @@
-# Webstore - Frontend
+# Garden Webstore - Frontend
 
 This is the frontend of the garden equipment webstore application.
 It displays register and login pages. Displays groups of products through different search methods,
