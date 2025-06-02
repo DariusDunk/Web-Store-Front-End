@@ -51,9 +51,28 @@ shop from the comfort of their homes, enhancing accessibility.
 
 ## Setup and instalation
 
-```
-git clone https://github.com/DariusDunk/Web-Store-Front-End.git
+## Clone repository:
 
 ```
+git clone https://github.com/DariusDunk/Web-Store-Front-End.git
+```
+
+## Install Dependencies:
+
+```
+npm instal
+```
+
+## Contributors
+
+- **Radosvet Minev**: Software Engineering student at Technical University of Varna.
+
+---
+
+## Disclamer
+
+This project was developed for educational purposes as part of my graduation project at the Technical University of Varna.
+
+
 
 
